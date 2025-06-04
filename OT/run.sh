@@ -1,0 +1,48 @@
+#!/bin/bash                                                                                  
+#modified by Zhao Yang, originally from Edward Hu
+ 
+#SBATCH --cpus-per-gpu=16
+#SBATCH --gpus=1
+#SBATCH --gpus-per-task=1 
+#SBATCH --time=48:00:00
+#SBATCH --partition=gpu_h100
+#SBATCH --array=0
+#SBATCH --output=/home/zyang2/logdir/slurm/output/%j.out
+ 
+conda deactivate
+conda deactivate
+conda deactivate
+conda activate viper
+
+module load cuDNN/8.9.2.26-CUDA-12.1.1
+module load FFmpeg/6.0-GCCcore-12.3.0
+
+SEED=$SLURM_ARRAY_TASK_ID
+
+
+TASKS=(
+#    "reacher_easy"
+#"pointmass_easy"
+#    "pendulum_swingup"
+#    "quadruped_walk"
+#    "quadruped_run"
+#    "hopper_stand"
+#    "finger_turn_hard"
+#    "finger_spin"
+#    "cup_catch"
+#    "cheetah_run"
+#    "cartpole_swingup"
+#    "cartpole_balance"
+#        "atari_pong"
+#"atari_freeway"
+#        "atari_boxing"
+#"atari_atlantis"
+#"atari_kangaroo"
+#        "real_sim"
+        "close_view"
+)
+
+
+TASK_NAME="${TASKS[$SEED]}"
+
+python train_ot.py --task_name "$TASK_NAME">"test_${SEED}.out" 2>&1
