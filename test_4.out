@@ -2401,109 +2401,110 @@ timer/agent.train_avg 0.08 / timer/agent.train_min 0.08 / timer/agent.train_max
 0.09 / timer/agent.report_count 1 / timer/agent.report_total 0.04 / 
 timer/agent.report_frac 1.3e-4 / timer/agent.report_avg 0.04 / 
 timer/agent.report_min 0.04 / timer/agent.report_max 0.04 / fps 149.58
-timer/agent.report_frac 1.3e-4 / timer/agent.report_avg 0.04 / 
-timer/agent.report_min 0.04 / timer/agent.report_max 0.04 / fps 148.27
-agent.report_min 0.04 / 
-timer/agent.report_max 0.04 / fps 152.31
 
-Episode has 1000 steps and return 385.0.
-Episode has 1000 steps and return 365.0.
-Episode has 1000 steps and return 384.0.
-Episode has 1000 steps and return 383.0.
-Episode has 1000 steps and return 377.0.
-Episode has 1000 steps and return 379.0.
-Episode has 1000 steps and return 364.0.
-Episode has 1000 steps and return 381.0.
-Episode has 1000 steps and return 380.0.
-Episode has 1000 steps and return 385.0.
-Episode has 1000 steps and return 379.0.
-Episode has 1000 steps and return 384.0.
-Episode has 1000 steps and return 381.0.
-Episode has 1000 steps and return 376.0.
-Episode has 1000 steps and return 386.0.
-Episode has 1000 steps and return 393.0.
-Writing checkpoint: logdir/dmc_finger_spin/4/checkpoint.ckpt
-Wrote checkpoint: logdir/dmc_finger_spin/4/checkpoint.ckpt
-Episode has 1000 steps and return 470.0.
-Episode has 1000 steps and return 506.0.
-Episode has 1000 steps and return 476.0.
-Episode has 1000 steps and return 485.0.
-───────────────────────────────── Step 946944 ──────────────────────────────────
-episode/length 1000 / episode/score 485 / episode/sum_abs_reward 485 / 
-episode/reward_rate 0.48 / train/action_mag 1.45 / train/action_max 1.38 / 
-train/action_mean -0.07 / train/action_min -1.44 / train/action_std 0.92 / 
+Episode has 1000 steps and return 437.3.
+Episode has 1000 steps and return 361.5.
+Episode has 1000 steps and return 403.8.
+Episode has 1000 steps and return 368.0.
+Episode has 1000 steps and return 382.5.
+Episode has 1000 steps and return 373.1.
+Episode has 1000 steps and return 490.1.
+Episode has 1000 steps and return 0.0.
+Episode has 1000 steps and return 492.0.
+Episode has 1000 steps and return 492.3.
+Episode has 1000 steps and return 498.0.
+Episode has 1000 steps and return 420.9.
+Episode has 1000 steps and return 454.4.
+Episode has 1000 steps and return 524.1.
+Episode has 1000 steps and return 534.9.
+Episode has 1000 steps and return 430.4.
+Episode has 1000 steps and return 537.7.
+Episode has 1000 steps and return 534.5.
+Episode has 1000 steps and return 559.9.
+Episode has 1000 steps and return 491.0.
+Writing checkpoint: logdir/dmc_hopper_stand/4/checkpoint.ckpt
+Wrote checkpoint: logdir/dmc_hopper_stand/4/checkpoint.ckpt
+Episode has 1000 steps and return 446.4.
+Episode has 1000 steps and return 467.5.
+Episode has 1000 steps and return 526.8.
+Episode has 1000 steps and return 524.1.
+───────────────────────────────── Step 942202 ──────────────────────────────────
+episode/length 1000 / episode/score 524.11 / episode/sum_abs_reward 524.11 / 
+episode/reward_rate 0.61 / train/action_mag 3.23 / train/action_max 3.09 / 
+train/action_mean -0.12 / train/action_min -3.02 / train/action_std 0.95 / 
 train/actor_opt_actor_opt_grad_overflow 0 / train/actor_opt_actor_opt_grad_scale
-1e4 / train/actor_opt_grad_norm 0.39 / train/actor_opt_grad_steps 2.9e4 / 
-train/actor_opt_loss 124.51 / train/adv_mag 0.87 / train/adv_max 0.62 / 
-train/adv_mean -0.01 / train/adv_min -0.73 / train/adv_std 0.07 / train/cont_avg
-1 / train/cont_loss_mean 4.1e-10 / train/cont_loss_std 1e-9 / train/cont_neg_acc
-nan / train/cont_neg_loss nan / train/cont_pos_acc 1 / train/cont_pos_loss 
-4.1e-10 / train/cont_pred 1 / train/cont_rate 1 / train/dyn_loss_mean 2.85 / 
-train/dyn_loss_std 5.03 / train/extr_critic_critic_opt_critic_opt_grad_overflow 
-0 / train/extr_critic_critic_opt_critic_opt_grad_scale 1e4 / 
-train/extr_critic_critic_opt_grad_norm 0.07 / 
+1e4 / train/actor_opt_grad_norm 0.09 / train/actor_opt_grad_steps 2.9e4 / 
+train/actor_opt_loss -371.61 / train/adv_mag 1.89 / train/adv_max 1.89 / 
+train/adv_mean 0.04 / train/adv_min -0.43 / train/adv_std 0.07 / train/cont_avg 
+1 / train/cont_loss_mean 3.2e-10 / train/cont_loss_std 1.4e-9 / 
+train/cont_neg_acc nan / train/cont_neg_loss nan / train/cont_pos_acc 1 / 
+train/cont_pos_loss 3.2e-10 / train/cont_pred 1 / train/cont_rate 1 / 
+train/dyn_loss_mean 2.62 / train/dyn_loss_std 3.81 / 
+train/extr_critic_critic_opt_critic_opt_grad_overflow 0 / 
+train/extr_critic_critic_opt_critic_opt_grad_scale 1e4 / 
+train/extr_critic_critic_opt_grad_norm 0.36 / 
 train/extr_critic_critic_opt_grad_steps 2.9e4 / 
-train/extr_critic_critic_opt_loss 5634.64 / train/extr_critic_mag 155.89 / 
-train/extr_critic_max 155.89 / train/extr_critic_mean 151.37 / 
-train/extr_critic_min 133.87 / train/extr_critic_std 3.5 / 
-train/extr_return_normed_mag 1.51 / train/extr_return_normed_max 1.19 / 
-train/extr_return_normed_mean 0.67 / train/extr_return_normed_min -0.75 / 
-train/extr_return_normed_std 0.31 / train/extr_return_rate 1 / 
-train/extr_return_raw_mag 157.13 / train/extr_return_raw_max 157.13 / 
-train/extr_return_raw_mean 151.29 / train/extr_return_raw_min 134.8 / 
-train/extr_return_raw_std 3.7 / train/extr_reward_mag 1 / train/extr_reward_max 
-1 / train/extr_reward_mean 0.36 / train/extr_reward_min 0 / 
-train/extr_reward_std 0.47 / train/image_loss_mean 0.58 / train/image_loss_std 
-0.52 / train/model_loss_mean 2.57 / train/model_loss_std 0 / 
-train/model_opt_grad_norm 10.9 / train/model_opt_grad_steps 2.9e4 / 
-train/model_opt_loss 1.7e4 / train/model_opt_model_opt_grad_overflow 0 / 
-train/model_opt_model_opt_grad_scale 6478.87 / train/policy_entropy_mag 1.77 / 
-train/policy_entropy_max -0.44 / train/policy_entropy_mean -1.74 / 
-train/policy_entropy_min -1.77 / train/policy_entropy_std 0.07 / 
-train/policy_logprob_mag 7.1 / train/policy_logprob_max 2.77 / 
-train/policy_logprob_mean 1.74 / train/policy_logprob_min -7.1 / 
-train/policy_logprob_std 1 / train/policy_randomness_mag 0.29 / 
-train/policy_randomness_max 0.29 / train/policy_randomness_mean 5.5e-3 / 
-train/policy_randomness_min 1.7e-5 / train/policy_randomness_std 0.02 / 
-train/post_ent_mag 51.74 / train/post_ent_max 51.74 / train/post_ent_mean 40.98 
-/ train/post_ent_min 21.59 / train/post_ent_std 5.95 / train/prior_ent_mag 67.82
-/ train/prior_ent_max 67.82 / train/prior_ent_mean 43.8 / train/prior_ent_min 
-25.02 / train/prior_ent_std 6.32 / train/rep_loss_mean 2.85 / train/rep_loss_std
-5.03 / train/reward_avg 0.35 / train/reward_loss_mean 0.28 / 
-train/reward_loss_std 0.4 / train/reward_max_data 1 / train/reward_max_pred 1 / 
-train/reward_neg_acc 0.97 / train/reward_neg_loss 0.03 / train/reward_pos_acc 1 
-/ train/reward_pos_loss 0.73 / train/reward_pred 0.35 / train/reward_rate 0.35 /
-stats/sum_log_entropy -1752.67 / stats/mean_log_entropy -1.75 / 
-stats/max_log_entropy 0 / replay/size 4.5e5 / replay/inserts 2.2e4 / 
-replay/samples 2.3e4 / replay/insert_wait_avg 6.3e-7 / replay/insert_wait_frac 1
-/ replay/sample_wait_avg 1e-6 / replay/sample_wait_frac 1 / timer/duration 
-300.07 / timer/env.step_count 5691 / timer/env.step_total 22.83 / 
-timer/env.step_frac 0.08 / timer/env.step_avg 4e-3 / timer/env.step_min 3.8e-3 /
-timer/env.step_max 6e-3 / timer/replay.add_count 2.3e4 / timer/replay.add_total 
-146.81 / timer/replay.add_frac 0.49 / timer/replay.add_avg 6.4e-3 / 
-timer/replay.add_min 2.1e-5 / timer/replay.add_max 0.33 / 
-timer/logger.write_count 1 / timer/logger.write_total 7.77 / 
-timer/logger.write_frac 0.03 / timer/logger.write_avg 7.77 / 
-timer/logger.write_min 7.77 / timer/logger.write_max 7.77 / 
-timer/checkpoint.save_count 1 / timer/checkpoint.save_total 4.9e-4 / 
-timer/checkpoint.save_frac 1.6e-6 / timer/checkpoint.save_avg 4.9e-4 / 
-timer/checkpoint.save_min 4.9e-4 / timer/checkpoint.save_max 4.9e-4 / 
-timer/agent.save_count 1 / timer/agent.save_total 0.1 / timer/agent.save_frac 
-3.3e-4 / timer/agent.save_avg 0.1 / timer/agent.save_min 0.1 / 
-timer/agent.save_max 0.1 / timer/replay.save_count 1 / timer/replay.save_total 
-1.6e-5 / timer/replay.save_frac 5.3e-8 / timer/replay.save_avg 1.6e-5 / 
-timer/replay.save_min 1.6e-5 / timer/replay.save_max 1.6e-5 / 
-timer/agent.policy_count 5691 / timer/agent.policy_total 11.95 / 
+train/extr_critic_critic_opt_loss 1.1e4 / train/extr_critic_mag 86.22 / 
+train/extr_critic_max 86.22 / train/extr_critic_mean 70.66 / 
+train/extr_critic_min 35.39 / train/extr_critic_std 6.89 / 
+train/extr_return_normed_mag 1.33 / train/extr_return_normed_max 1.33 / 
+train/extr_return_normed_mean 0.51 / train/extr_return_normed_min -0.16 / 
+train/extr_return_normed_std 0.3 / train/extr_return_rate 1 / 
+train/extr_return_raw_mag 91.39 / train/extr_return_raw_max 91.39 / 
+train/extr_return_raw_mean 71.58 / train/extr_return_raw_min 55.45 / 
+train/extr_return_raw_std 7.34 / train/extr_reward_mag 0.88 / 
+train/extr_reward_max 0.88 / train/extr_reward_mean 0.09 / train/extr_reward_min
+1.2e-7 / train/extr_reward_std 0.25 / train/image_loss_mean 1.04 / 
+train/image_loss_std 0.73 / train/model_loss_mean 2.66 / train/model_loss_std 0 
+/ train/model_opt_grad_norm 10.92 / train/model_opt_grad_steps 2.9e4 / 
+train/model_opt_loss 1.5e4 / train/model_opt_model_opt_grad_overflow 7e-3 / 
+train/model_opt_model_opt_grad_scale 5598.59 / train/policy_entropy_mag 3.51 / 
+train/policy_entropy_max 3.36 / train/policy_entropy_mean -1.06 / 
+train/policy_entropy_min -3.36 / train/policy_entropy_std 1.33 / 
+train/policy_logprob_mag 10.41 / train/policy_logprob_max 5.17 / 
+train/policy_logprob_mean 1.06 / train/policy_logprob_min -10.41 / 
+train/policy_logprob_std 1.94 / train/policy_randomness_mag 0.75 / 
+train/policy_randomness_max 0.75 / train/policy_randomness_mean 0.27 / 
+train/policy_randomness_min 0.02 / train/policy_randomness_std 0.14 / 
+train/post_ent_mag 46.71 / train/post_ent_max 46.71 / train/post_ent_mean 38.89 
+/ train/post_ent_min 26.5 / train/post_ent_std 3.1 / train/prior_ent_mag 58.19 /
+train/prior_ent_max 58.19 / train/prior_ent_mean 41.46 / train/prior_ent_min 
+31.64 / train/prior_ent_std 3.49 / train/rep_loss_mean 2.62 / train/rep_loss_std
+3.81 / train/reward_avg 0.09 / train/reward_loss_mean 0.05 / 
+train/reward_loss_std 0.16 / train/reward_max_data 0.9 / train/reward_max_pred 
+0.85 / train/reward_neg_acc 1 / train/reward_neg_loss 3.8e-3 / 
+train/reward_pos_acc 1 / train/reward_pos_loss 0.44 / train/reward_pred 0.09 / 
+train/reward_rate 0.1 / stats/sum_log_entropy -1004.37 / stats/mean_log_entropy 
+-1 / stats/max_log_entropy 2.79 / replay/size 4.4e5 / replay/inserts 2.1e4 / 
+replay/samples 2.3e4 / replay/insert_wait_avg 6.8e-7 / replay/insert_wait_frac 1
+/ replay/sample_wait_avg 9.6e-7 / replay/sample_wait_frac 1 / timer/duration 
+300.02 / timer/env.step_count 5659 / timer/env.step_total 23.1 / 
+timer/env.step_frac 0.08 / timer/env.step_avg 4.1e-3 / timer/env.step_min 3.9e-3
+/ timer/env.step_max 0.02 / timer/replay.add_count 2.3e4 / 
+timer/replay.add_total 144.8 / timer/replay.add_frac 0.48 / timer/replay.add_avg
+6.4e-3 / timer/replay.add_min 2.1e-5 / timer/replay.add_max 0.33 / 
+timer/logger.write_count 1 / timer/logger.write_total 7.93 / 
+timer/logger.write_frac 0.03 / timer/logger.write_avg 7.93 / 
+timer/logger.write_min 7.93 / timer/logger.write_max 7.93 / 
+timer/checkpoint.save_count 1 / timer/checkpoint.save_total 5.1e-4 / 
+timer/checkpoint.save_frac 1.7e-6 / timer/checkpoint.save_avg 5.1e-4 / 
+timer/checkpoint.save_min 5.1e-4 / timer/checkpoint.save_max 5.1e-4 / 
+timer/agent.save_count 1 / timer/agent.save_total 0.09 / timer/agent.save_frac 
+3e-4 / timer/agent.save_avg 0.09 / timer/agent.save_min 0.09 / 
+timer/agent.save_max 0.09 / timer/replay.save_count 1 / timer/replay.save_total 
+1.2e-5 / timer/replay.save_frac 3.9e-8 / timer/replay.save_avg 1.2e-5 / 
+timer/replay.save_min 1.2e-5 / timer/replay.save_max 1.2e-5 / 
+timer/agent.policy_count 5659 / timer/agent.policy_total 12.05 / 
 timer/agent.policy_frac 0.04 / timer/agent.policy_avg 2.1e-3 / 
-timer/agent.policy_min 2e-3 / timer/agent.policy_max 3.9e-3 / 
-timer/dataset_count 1423 / timer/dataset_total 0.11 / timer/dataset_frac 3.8e-4 
-/ timer/dataset_avg 8.1e-5 / timer/dataset_min 7.1e-5 / timer/dataset_max 1.8e-4
-/ timer/agent.train_count 1423 / timer/agent.train_total 109.34 / 
-timer/agent.train_frac 0.36 / timer/agent.train_avg 0.08 / timer/agent.train_min
-0.08 / timer/agent.train_max 0.16 / timer/agent.report_count 1 / 
+timer/agent.policy_min 2e-3 / timer/agent.policy_max 7.7e-3 / 
+timer/dataset_count 1415 / timer/dataset_total 0.12 / timer/dataset_frac 3.9e-4 
+/ timer/dataset_avg 8.2e-5 / timer/dataset_min 7.3e-5 / timer/dataset_max 2.2e-4
+/ timer/agent.train_count 1415 / timer/agent.train_total 110.76 / 
+timer/agent.train_frac 0.37 / timer/agent.train_avg 0.08 / timer/agent.train_min
+0.08 / timer/agent.train_max 0.12 / timer/agent.report_count 1 / 
 timer/agent.report_total 0.04 / timer/agent.report_frac 1.3e-4 / 
 timer/agent.report_avg 0.04 / timer/agent.report_min 0.04 / 
-timer/agent.report_max 0.04 / fps 151.73
+timer/agent.report_max 0.04 / fps 150.87
 wandb: WARNING Path /gpfs/home5/zyang/viper_rl/wandb/ wasn't writable, using system temp directory.
 Thread SenderThread:
 Traceback (most recent call last):
@@ -2523,7 +2524,7 @@ Traceback (most recent call last):
     self._update_summary()
   File "/home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/internal/sender.py", line 1160, in _update_summary
     with open(summary_path, "w") as f:
-FileNotFoundError: [Errno 2] No such file or directory: '/gpfs/home5/zyang/viper_rl/wandb/run-20250604_085549-hqmzom10/files/wandb-summary.json'
+FileNotFoundError: [Errno 2] No such file or directory: '/gpfs/home5/zyang/viper_rl/wandb/run-20250604_085851-sth655lo/files/wandb-summary.json'
 wandb: ERROR Internal wandb error: file data was not synced
 Exception in thread ChkStopThr:
 Traceback (most recent call last):
@@ -2553,4 +2554,316 @@ Traceback (most recent call last):
     self._sendall_with_error_handle(header + data)
   File "/home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
     sent = self._sock.send(data)
+BrokenPipeErro
+Episode has 1000 steps an
+Episode has 1000 steps and return 462.1.
+Episode has 1000 steps and return 535.7.
+Episode has 1000 steps and return 589.1.
+Episode has 1000 steps and return 554.1.
+Episode has 1000 steps and return 469.6.
+Episode has 1000 steps and return 395.2.
+Episode has 1000 steps and return 472.1.
+Episode has 1000 steps and return 570.6.
+Episode has 1000 steps and return 495.7.
+Episode has 1000 steps and return 654.9.
+Episode has 1000 steps and return 705.3.
+Episode has 1000 steps and return 518.9.
+Episode has 1000 steps and return 370.3.
+Episode has 1000 steps and return 517.0.
+Episode has 1000 steps and return 469.3.
+Episode has 1000 steps and return 524.2.
+Episode has 1000 steps and return 485.4.
+Episode has 1000 steps and return 492.3.
+Episode has 1000 steps and return 516.2.
+Episode has 1000 steps and return 482.0.
+───────────────────────────────── Step 987002 ──────────────────────────────────
+episode/length 1000 / episode/score 482.02 / episode/sum_abs_reward 482.02 / 
+episode/reward_rate 0.56 / train/action_mag 3.38 / train/action_max 3.23 / 
+train/action_mean -0.13 / train/action_min -3.18 / train/action_std 0.95 / 
+train/actor_opt_actor_opt_grad_overflow 0 / train/actor_opt_actor_opt_grad_scale
+1e4 / train/actor_opt_grad_norm 0.07 / train/actor_opt_grad_steps 3e4 / 
+train/actor_opt_loss -304.83 / train/adv_mag 1.44 / train/adv_max 1.41 / 
+train/adv_mean 0.03 / train/adv_min -0.47 / train/adv_std 0.06 / train/cont_avg 
+1 / train/cont_loss_mean 2.9e-10 / train/cont_loss_std 1.5e-9 / 
+train/cont_neg_acc nan / train/cont_neg_loss nan / train/cont_pos_acc 1 / 
+train/cont_pos_loss 2.9e-10 / train/cont_pred 1 / train/cont_rate 1 / 
+train/dyn_loss_mean 2.59 / train/dyn_loss_std 3.84 / 
+train/extr_critic_critic_opt_critic_opt_grad_overflow 0 / 
+train/extr_critic_critic_opt_critic_opt_grad_scale 1e4 / 
+train/extr_critic_critic_opt_grad_norm 0.34 / 
+train/extr_critic_critic_opt_grad_steps 3e4 / train/extr_critic_critic_opt_loss 
+1e4 / train/extr_critic_mag 103.55 / train/extr_critic_max 103.55 / 
+train/extr_critic_mean 86.22 / train/extr_critic_min 51.77 / 
+train/extr_critic_std 8.61 / train/extr_return_normed_mag 1.26 / 
+train/extr_return_normed_max 1.25 / train/extr_return_normed_mean 0.53 / 
+train/extr_return_normed_min -0.17 / train/extr_return_normed_std 0.31 / 
+train/extr_return_rate 1 / train/extr_return_raw_mag 108.2 / 
+train/extr_return_raw_max 108.2 / train/extr_return_raw_mean 87.14 / 
+train/extr_return_raw_min 66.26 / train/extr_return_raw_std 9.07 / 
+train/extr_reward_mag 0.91 / train/extr_reward_max 0.91 / train/extr_reward_mean
+0.11 / train/extr_reward_min 1.2e-7 / train/extr_reward_std 0.27 / 
+train/image_loss_mean 1.02 / train/image_loss_std 0.71 / train/model_loss_mean 
+2.63 / train/model_loss_std 0 / train/model_opt_grad_norm 9.94 / 
+train/model_opt_grad_steps 3e4 / train/model_opt_loss 1.5e4 / 
+train/model_opt_model_opt_grad_overflow 0 / train/model_opt_model_opt_grad_scale
+5892.86 / train/policy_entropy_mag 3.69 / train/policy_entropy_max 3.64 / 
+train/policy_entropy_mean -0.77 / train/policy_entropy_min -3.37 / 
+train/policy_entropy_std 1.49 / train/policy_logprob_mag 10.75 / 
+train/policy_logprob_max 5.16 / train/policy_logprob_mean 0.77 / 
+train/policy_logprob_min -10.75 / train/policy_logprob_std 2.05 / 
+train/policy_randomness_mag 0.78 / train/policy_randomness_max 0.78 / 
+train/policy_randomness_mean 0.3 / train/policy_randomness_min 0.02 / 
+train/policy_randomness_std 0.16 / train/post_ent_mag 46.88 / train/post_ent_max
+46.88 / train/post_ent_mean 39.28 / train/post_ent_min 27.02 / 
+train/post_ent_std 3.17 / train/prior_ent_mag 59.14 / train/prior_ent_max 59.14 
+/ train/prior_ent_mean 41.81 / train/prior_ent_min 31.77 / train/prior_ent_std 
+3.6 / train/rep_loss_mean 2.59 / train/rep_loss_std 3.84 / train/reward_avg 0.11
+/ train/reward_loss_mean 0.06 / train/reward_loss_std 0.17 / 
+train/reward_max_data 0.91 / train/reward_max_pred 0.87 / train/reward_neg_acc 1
+/ train/reward_neg_loss 4.5e-3 / train/reward_pos_acc 1 / train/reward_pos_loss 
+0.44 / train/reward_pred 0.11 / train/reward_rate 0.13 / stats/sum_log_entropy 
+101.22 / stats/mean_log_entropy 0.1 / stats/max_log_entropy 3.73 / replay/size 
+4.6e5 / replay/inserts 2.1e4 / replay/samples 2.2e4 / replay/insert_wait_avg 
+6.8e-7 / replay/insert_wait_frac 1 / replay/sample_wait_avg 9.5e-7 / 
+replay/sample_wait_frac 1 / timer/duration 300.05 / timer/env.step_count 5600 / 
+timer/env.step_total 22.78 / timer/env.step_frac 0.08 / timer/env.step_avg 
+4.1e-3 / timer/env.step_min 3.9e-3 / timer/env.step_max 5.5e-3 / 
+timer/replay.add_count 2.2e4 / timer/replay.add_total 146.58 / 
+timer/replay.add_frac 0.49 / timer/replay.add_avg 6.5e-3 / timer/replay.add_min 
+2.2e-5 / timer/replay.add_max 0.37 / timer/logger.write_count 1 / 
+timer/logger.write_total 7.75 / timer/logger.write_frac 0.03 / 
+timer/logger.write_avg 7.75 / timer/logger.write_min 7.75 / 
+timer/logger.write_max 7.75 / timer/checkpoint.save_count 0 / 
+timer/checkpoint.save_total 0 / timer/checkpoint.save_frac 0 / 
+timer/agent.save_count 0 / timer/agent.save_total 0 / timer/agent.save_frac 0 / 
+timer/replay.save_count 0 / timer/replay.save_total 0 / timer/replay.save_frac 0
+/ timer/agent.policy_count 5600 / timer/agent.policy_total 11.97 / 
+timer/agent.policy_frac 0.04 / timer/agent.policy_avg 2.1e-3 / 
+timer/agent.policy_min 2e-3 / timer/agent.policy_max 5.1e-3 / 
+timer/dataset_count 1400 / timer/dataset_total 0.12 / timer/dataset_frac 3.8e-4 
+/ timer/dataset_avg 8.2e-5 / timer/dataset_min 7.3e-5 / timer/dataset_max 2.2e-4
+/ timer/agent.train_count 1400 / timer/agent.train_total 109.6 / 
+timer/agent.train_frac 0.37 / timer/agent.train_avg 0.08 / timer/agent.train_min
+0.08 / timer/agent.train_max 0.12 / timer/agent.report_count 1 / 
+timer/agent.report_total 0.04 / timer/agent.report_frac 1.3e-4 / 
+timer/agent.report_avg 0.04 / timer/agent.report_min 0.04 / 
+timer/agent.report_max 0.04 / fps 149.3
+
+Traceback (most recent call last):
+  File "scripts/train_dreamer.py", line 250, in <module>
+    main()
+  File "scripts/train_dreamer.py", line 63, in main
+    embodied.run.train(agent, env, replay, logger, args)
+  File "/gpfs/home5/zyang/viper_rl/viper_rl/dreamerv3/embodied/run/train.py", line 114, in train
+  File "/gpfs/home5/zyang/viper_rl/viper_rl/dreamerv3/embodied/core/driver.py", line 42, in __call__
+  File "/gpfs/home5/zyang/viper_rl/viper_rl/dreamerv3/embodied/core/driver.py", line 65, in _step
+  File "/gpfs/home5/zyang/viper_rl/viper_rl/dreamerv3/embodied/core/driver.py", line 65, in <listcomp>
+  File "/gpfs/home5/zyang/viper_rl/viper_rl/dreamerv3/embodied/run/train.py", line 95, in train_step
+  File "/home/zyang/.conda/envs/viper/lib/python3.8/contextlib.py", line 75, in inner
+    return func(*args, **kwds)
+  File "/gpfs/home5/zyang/viper_rl/viper_rl/dreamerv3/embodied/core/logger.py", line 53, in write
+  File "/gpfs/home5/zyang/viper_rl/viper_rl/dreamerv3/embodied/core/logger.py", line 274, in __call__
+  File "/home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/wandb_run.py", line 393, in wrapper
+    return func(self, *args, **kwargs)
+  File "/home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/wandb_run.py", line 344, in wrapper_fn
+    return func(self, *args, **kwargs)
+  File "/home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/wandb_run.py", line 334, in wrapper
+    return func(self, *args, **kwargs)
+  File "/home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/wandb_run.py", line 1750, in log
+    self._log(data=data, step=step, commit=commit)
+  File "/home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/wandb_run.py", line 1531, in _log
+    self._partial_history_callback(data, step, commit)
+  File "/home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/wandb_run.py", line 1401, in _partial_history_callback
+    self._backend.interface.publish_partial_history(
+  File "/home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/interface/interface.py", line 585, in publish_partial_history
+    self._publish_partial_history(partial_history)
+  File "/home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/interface/interface_shared.py", line 89, in _publish_partial_history
+    self._publish(rec)
+  File "/home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/interface/interface_sock.py", line 51, in _publish
+    self._sock_client.send_record_publish(record)
+  File "/home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/lib/sock_client.py", line 221, in send_record_publish
+    self.send_server_request(server_req)
+  File "/home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/lib/sock_client.py", line 155, in send_server_request
+    self._send_message(msg)
+  File "/home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/lib/sock_client.py", line 152, in _send_message
+    self._sendall_with_error_handle(header + data)
+  File "/home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
+    sent = self._sock.send(data)
 BrokenPipeError: [Errno 32] Broken pipe
+╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ in <module>:250                                                              │
+│                                                                              │
+│ in main:63                                                                   │
+│                                                                              │
+│ in train:114                                                                 │
+│                                                                              │
+│ in __call__:42                                                               │
+│                                                                              │
+│ in _step:65                                                                  │
+│                                                                              │
+│ in <listcomp>:65                                                             │
+│                                                                              │
+│ in train_step:95                                                             │
+│                                                                              │
+│ /home/zyang/.conda/envs/viper/lib/python3.8/contextlib.py:75 in inner        │
+│                                                                              │
+│    72 │   │   @wraps(func)                                                   │
+│    73 │   │   def inner(*args, **kwds):                                      │
+│    74 │   │   │   with self._recreate_cm():                                  │
+│ ❱  75 │   │   │   │   return func(*args, **kwds)                             │
+│    76 │   │   return inner                                                   │
+│    77                                                                        │
+│    78                                                                        │
+│                                                                              │
+│ in write:53                                                                  │
+│                                                                              │
+│ in __call__:274                                                              │
+│                                                                              │
+│ /home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/wandb_ru │
+│ n.py:393 in wrapper                                                          │
+│                                                                              │
+│    390 │   │   │   │   │   wandb.termwarn(message, repeat=False)             │
+│    391 │   │   │   │   │   return cls.Dummy()                                │
+│    392 │   │   │                                                             │
+│ ❱  393 │   │   │   return func(self, *args, **kwargs)                        │
+│    394 │   │                                                                 │
+│    395 │   │   return wrapper                                                │
+│    396                                                                       │
+│                                                                              │
+│ /home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/wandb_ru │
+│ n.py:344 in wrapper_fn                                                       │
+│                                                                              │
+│    341 │   │   │   @functools.wraps(func)                                    │
+│    342 │   │   │   def wrapper_fn(self: Type["Run"], *args: Any, **kwargs: A │
+│    343 │   │   │   │   if not getattr(self, "_is_finished", False):          │
+│ ❱  344 │   │   │   │   │   return func(self, *args, **kwargs)                │
+│    345 │   │   │   │                                                         │
+│    346 │   │   │   │   default_message = (                                   │
+│    347 │   │   │   │   │   f"Run ({self.id}) is finished. The call to `{func │
+│                                                                              │
+│ /home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/wandb_ru │
+│ n.py:334 in wrapper                                                          │
+│                                                                              │
+│    331 │   │   │   │   │   cls._is_attaching = ""                            │
+│    332 │   │   │   │   │   raise e                                           │
+│    333 │   │   │   │   cls._is_attaching = ""                                │
+│ ❱  334 │   │   │   return func(self, *args, **kwargs)                        │
+│    335 │   │                                                                 │
+│    336 │   │   return wrapper                                                │
+│    337                                                                       │
+│                                                                              │
+│ /home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/wandb_ru │
+│ n.py:1750 in log                                                             │
+│                                                                              │
+│   1747 │   │   │   │   │   "`sync` argument is deprecated and does not affec │
+│   1748 │   │   │   │   ),                                                    │
+│   1749 │   │   │   )                                                         │
+│ ❱ 1750 │   │   self._log(data=data, step=step, commit=commit)                │
+│   1751 │                                                                     │
+│   1752 │   @_run_decorator._noop_on_finish()                                 │
+│   1753 │   @_run_decorator._attach                                           │
+│                                                                              │
+│ /home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/wandb_ru │
+│ n.py:1531 in _log                                                            │
+│                                                                              │
+│   1528 │   │   if any(not isinstance(key, str) for key in data.keys()):      │
+│   1529 │   │   │   raise ValueError("Key values passed to `wandb.log` must b │
+│   1530 │   │                                                                 │
+│ ❱ 1531 │   │   self._partial_history_callback(data, step, commit)            │
+│   1532 │   │                                                                 │
+│   1533 │   │   if step is not None:                                          │
+│   1534 │   │   │   if os.getpid() != self._init_pid or self._is_attached:    │
+│                                                                              │
+│ /home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/wandb_ru │
+│ n.py:1401 in _partial_history_callback                                       │
+│                                                                              │
+│   1398 │   │   if self._backend and self._backend.interface:                 │
+│   1399 │   │   │   not_using_tensorboard = len(wandb.patched["tensorboard"]) │
+│   1400 │   │   │                                                             │
+│ ❱ 1401 │   │   │   self._backend.interface.publish_partial_history(          │
+│   1402 │   │   │   │   row,                                                  │
+│   1403 │   │   │   │   user_step=self._step,                                 │
+│   1404 │   │   │   │   step=step,                                            │
+│                                                                              │
+│ /home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/interfac │
+│ e/interface.py:585 in publish_partial_history                                │
+│                                                                              │
+│   582 │   │   │   partial_history.step.num = step                            │
+│   583 │   │   if flush is not None:                                          │
+│   584 │   │   │   partial_history.action.flush = flush                       │
+│ ❱ 585 │   │   self._publish_partial_history(partial_history)                 │
+│   586 │                                                                      │
+│   587 │   @abstractmethod                                                    │
+│   588 │   def _publish_partial_history(self, history: pb.PartialHistoryReque │
+│                                                                              │
+│ /home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/interfac │
+│ e/interface_shared.py:89 in _publish_partial_history                         │
+│                                                                              │
+│    86 │   │   self, partial_history: pb.PartialHistoryRequest                │
+│    87 │   ) -> None:                                                         │
+│    88 │   │   rec = self._make_request(partial_history=partial_history)      │
+│ ❱  89 │   │   self._publish(rec)                                             │
+│    90 │                                                                      │
+│    91 │   def _publish_history(self, history: pb.HistoryRecord) -> None:     │
+│    92 │   │   rec = self._make_record(history=history)                       │
+│                                                                              │
+│ /home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/interfac │
+│ e/interface_sock.py:51 in _publish                                           │
+│                                                                              │
+│   48 │                                                                       │
+│   49 │   def _publish(self, record: "pb.Record", local: Optional[bool] = Non │
+│   50 │   │   self._assign(record)                                            │
+│ ❱ 51 │   │   self._sock_client.send_record_publish(record)                   │
+│   52 │                                                                       │
+│   53 │   def _communicate_async(                                             │
+│   54 │   │   self, rec: "pb.Record", local: Optional[bool] = None            │
+│                                                                              │
+│ /home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/lib/sock │
+│ _client.py:221 in send_record_publish                                        │
+│                                                                              │
+│   218 │   def send_record_publish(self, record: "pb.Record") -> None:        │
+│   219 │   │   server_req = spb.ServerRequest()                               │
+│   220 │   │   server_req.record_publish.CopyFrom(record)                     │
+│ ❱ 221 │   │   self.send_server_request(server_req)                           │
+│   222 │                                                                      │
+│   223 │   def _extract_packet_bytes(self) -> Optional[bytes]:                │
+│   224 │   │   # Do we have enough data to read the header?                   │
+│                                                                              │
+│ /home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/lib/sock │
+│ _client.py:155 in send_server_request                                        │
+│                                                                              │
+│   152 │   │   │   self._sendall_with_error_handle(header + data)             │
+│   153 │                                                                      │
+│   154 │   def send_server_request(self, msg: Any) -> None:                   │
+│ ❱ 155 │   │   self._send_message(msg)                                        │
+│   156 │                                                                      │
+│   157 │   def send_server_response(self, msg: Any) -> None:                  │
+│   158 │   │   try:                                                           │
+│                                                                              │
+│ /home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/lib/sock │
+│ _client.py:152 in _send_message                                              │
+│                                                                              │
+│   149 │   │   assert len(data) == raw_size, "invalid serialization"          │
+│   150 │   │   header = struct.pack("<BI", ord("W"), raw_size)                │
+│   151 │   │   with self._lock:                                               │
+│ ❱ 152 │   │   │   self._sendall_with_error_handle(header + data)             │
+│   153 │                                                                      │
+│   154 │   def send_server_request(self, msg: Any) -> None:                   │
+│   155 │   │   self._send_message(msg)                                        │
+│                                                                              │
+│ /home/zyang/.conda/envs/viper/lib/python3.8/site-packages/wandb/sdk/lib/sock │
+│ _client.py:130 in _sendall_with_error_handle                                 │
+│                                                                              │
+│   127 │   │   while total_sent < total_data:                                 │
+│   128 │   │   │   start_time = time.monotonic()                              │
+│   129 │   │   │   try:                                                       │
+│ ❱ 130 │   │   │   │   sent = self._sock.send(data)                           │
+│   131 │   │   │   │   # sent equal to 0 indicates a closed socket            │
+│   132 │   │   │   │   if sent == 0:                                          │
+│   133 │   │   │   │   │   raise SockClientClosedError("socket connection bro │
+╰──────────────────────────────────────────────────────────────────────────────╯
+BrokenPipeError: [Errno 32] Broken pipe
+wandb: While tearing down the service manager. The following error has occurred: [Errno 32] Broken pipe
+Errno 32] Broken pipe
+wandb: While tearing down the service manager. The following error has occurred: [Errno 32] Broken pipe
+rred: [Errno 32] Broken pipe
