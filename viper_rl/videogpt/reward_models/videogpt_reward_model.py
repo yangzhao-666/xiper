@@ -224,6 +224,8 @@ class VideoGPTRewardModel:
         # Compute encodings and embeddings for image sequence.
         image_batch = jnp.stack([seq[i][self.camera_key] for i in range(start_idx, len(seq))])
         if self.use_ot:
+            if self.mask is not None:
+                image_batch = image_batch * self.mask
             image_batch = self.ot_model.translate(image_batch)
 
         image_batch = self.process_images(image_batch)
