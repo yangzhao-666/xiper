@@ -23,8 +23,8 @@ module load FFmpeg/6.0-GCCcore-12.3.0
 export MUJOCO_GL="egl"
 
 # Agent
-AGENT="Viper"
-#AGENT="XViper"
+#AGENT="Viper"
+AGENT="XViper"
 
 # Define tasks and seeds
 TASKS=(
@@ -49,6 +49,6 @@ python scripts/train_dreamer.py \
   --configs=atari videogpt_prior_rb \
   --task=$TASK \
   --reward_model=atari_clen16_fskip4_mask \
-  --reward_model_use_ot=False \
+  --reward_model_use_ot=True \
   --reward_model_ot_path="/home/zyang/NeuralOptimalTransport/checkpoints/mse/atari/SN_TN_64/0_999.pt" \
   --logdir=./logdir/${TASK}/${AGENT}/${SEED}>"test_${SEED}.out" 2>&1
