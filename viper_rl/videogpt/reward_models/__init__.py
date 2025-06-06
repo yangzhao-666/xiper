@@ -31,4 +31,7 @@ LOAD_REWARD_MODEL_DICT = {
   'atari_clen16_fskip4': bind_videogpt_reward_model(  # Frame skip 4
     videogpt_path=get_path('atari_videogpt_l4_s4'),
     vqgan_path=get_path('atari_vqgan')),
+  'atari_clen16_fskip4_mask': bind_videogpt_reward_model(  # Frame skip 4
+    videogpt_path=get_path('atari_videogpt_l4_s4_mask'),
+    vqgan_path=get_path('atari_vqgan')),
 }

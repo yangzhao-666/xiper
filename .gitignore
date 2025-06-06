@@ -51,3 +51,4 @@ viper_rl_data/checkpoints/
 wandb/
 ot_data/
 logdir/
+good_bad_videos/
