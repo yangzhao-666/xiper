@@ -6,7 +6,7 @@
 #SBATCH --gpus-per-task=1
 #SBATCH --time=24:00:00
 #SBATCH --partition=gpu_a100
-#SBATCH --array=0
+#SBATCH --array=0-13
 #SBATCH --output=/home/zyang/logdir/slurm/output/%A_%a.out
 
 # Conda setup
@@ -24,23 +24,33 @@ export MUJOCO_GL="egl"
 
 # Agent
 #AGENT="Viper"
-#AGENT="XViper"
-AGENT="Oracle_viper"
+AGENT="Drv3"
 
 # Define tasks and seeds
 TASKS=(
-"atari_pong"
-#"atari_freeway"
-#"atari_kangaroo"
-#    "atari_boxing"
+    "dmc_cartpole_balance"
+    "dmc_cartpole_swingup"
+    "dmc_cheetah_run"
+    "dmc_cup_catch"
+    "dmc_finger_spin"
+    "dmc_finger_turn_hard"
+    "dmc_hopper_stand"
+    "dmc_pendulum_swingup"
+    "dmc_pointmass_easy"
+    "dmc_pointmass_hard"
+    "dmc_quadruped_run"
+    "dmc_quadruped_walk"
+    "dmc_reacher_easy"
+    "dmc_reacher_hard"
+#    "dmc_walker_walk"
 )
 
-SEEDS=(20)
+SEEDS=(0)
 
 # Determine current task/seed from SLURM_ARRAY_TASK_ID
 INDEX=$SLURM_ARRAY_TASK_ID
-TASK_IDX=$(( INDEX / 3 ))
-SEED_IDX=$(( INDEX % 3 ))
+TASK_IDX=$(( INDEX / 1 ))
+SEED_IDX=$(( INDEX % 1 ))
 
 TASK=${TASKS[$TASK_IDX]}
 SEED=${SEEDS[$SEED_IDX]}
@@ -49,10 +59,6 @@ SEED=${SEEDS[$SEED_IDX]}
 echo "Running TASK=$TASK | AGENT=$AGENT | SEED=$SEED"
 
 python scripts/train_dreamer.py \
-  --configs=atari videogpt_prior_rb \
+  --configs dmc_vision \
   --task=$TASK \
-  --reward_model=atari_clen16_fskip4_mask \
-  --reward_model_use_ot=False \
-  --reward_model_ot_path="/home/zyang/NeuralOptimalTransport/checkpoints/mse/atari/SN_TN_64/0_999.pt" \
-  --env.atari.gray=False \
   --logdir=./logdir/${TASK}/${AGENT}/${SEED}>"test_${SEED}.out" 2>&1
