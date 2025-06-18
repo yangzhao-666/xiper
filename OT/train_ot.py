@@ -12,7 +12,6 @@ import wandb
 import json
 
 # Plotting and utilities
-import matplotlib.pyplot as plt
 from tqdm import tqdm
 from IPython.display import clear_output
 
@@ -44,7 +43,7 @@ IMG_SIZE = 64
 BATCH_SIZE = 64
 PLOT_INTERVAL = 100
 CPKT_INTERVAL = 1000
-MAX_STEPS = 100001
+MAX_STEPS = 10001
 SEED = 0x000000
 COST = 'mse'
 DEVICE_IDS = [0]
@@ -54,7 +53,7 @@ def train_ot_model(task_config):
     DATASET1, DATASET1_PATH = task_config["DATASET1"], task_config["DATASET1_PATH"]
     DATASET2, DATASET2_PATH = task_config["DATASET2"], task_config["DATASET2_PATH"]
 
-    EXP_NAME = f'{DATASET1}_{DATASET2}_T{T_ITERS}_{COST}_{IMG_SIZE}'
+    EXP_NAME = f'{task}_T{T_ITERS}_{COST}_{IMG_SIZE}'
     OUTPUT_PATH = f'./checkpoints/{COST}/{task}/{DATASET1}_{DATASET2}_{IMG_SIZE}/'
     os.makedirs(OUTPUT_PATH, exist_ok=True)
 
@@ -82,7 +81,7 @@ def train_ot_model(task_config):
         reinit=True
     )
 
-    # Save dataset stats
+    # ------------------------- create stats file ----------
     DATASET_LIST = [(DATASET1, DATASET1_PATH), (DATASET2, DATASET2_PATH)]
     for DATASET, DATASET_PATH in DATASET_LIST:
         sampler, test_sampler = load_dataset(DATASET, DATASET_PATH, img_size=IMG_SIZE)
@@ -98,6 +97,9 @@ def train_ot_model(task_config):
     with open(filename, 'r') as fp:
         data_stats = json.load(fp)
         mu_data, sigma_data = data_stats['mu'], data_stats['sigma']
+
+    del sampler, test_sampler
+    # ------------------------- ending create stats file ----------
 
     X_sampler, X_test_sampler = load_dataset(DATASET1, DATASET1_PATH, img_size=IMG_SIZE)
     Y_sampler, Y_test_sampler = load_dataset(DATASET2, DATASET2_PATH, img_size=IMG_SIZE)
@@ -170,21 +172,29 @@ def train_ot_model(task_config):
     torch.cuda.empty_cache()
 
 TASKS = [
-    {
-        "name": "atari",
-        "DATASET1": "SN",
-        "DATASET1_PATH": "/home/zyang/XViper/ot_data/atari/gray_atari.h5",
-        "DATASET2": "TN",
-        "DATASET2_PATH": "/home/zyang/XViper/ot_data/atari/color_atari.h5"
-    },
-    {
-        "name": "dmc",
-        "DATASET1": "SN",
-        "DATASET1_PATH": "/home/zyang/viper_rl/ot_data/target.h5",
-        "DATASET2": "TN",
-        "DATASET2_PATH": "/home/zyang/viper_rl/ot_data/merged.h5"
-    }
-]
+          #{
+            #"name": "cartpole_balance",
+            #"DATASET1": "SN",
+            #"DATASET1_PATH": "/home/zyang/XViper/ot_data/dmc_merged_gray/cartpole_balance/cartpole_balance.h5",
+            #"DATASET2": "TN",
+            #"DATASET2_PATH": "/home/zyang/XViper/ot_data/dmc_merged_orange/cartpole_balance/cartpole_balance.h5"
+          #}
+          #{
+          #  "name": "cartpole_swingup",
+          #  "DATASET1": "SN",
+          #  "DATASET1_PATH": "/home/zyang/XViper/ot_data/dmc_merged_gray/cartpole_swingup/cartpole_swingup.h5",
+          #  "DATASET2": "TN",
+          #  "DATASET2_PATH": "/home/zyang/XViper/ot_data/dmc_merged_orange/cartpole_swingup/cartpole_swingup.h5"
+          #  }
+          {
+            "name": "reacher_easy",
+            "DATASET1": "SN",
+            "DATASET1_PATH": "/home/zyang/XViper/ot_data/dmc_merged_gray/reacher_easy/reacher_easy.h5",
+            "DATASET2": "TN",
+            "DATASET2_PATH": "/home/zyang/XViper/ot_data/dmc_merged_orange/reacher_easy/reacher_easy.h5"
+          }
+        ]
+
 
 if __name__ == "__main__":
     for task in TASKS:

@@ -53,3 +53,8 @@ ot_data/
 logdir/
 good_bad_videos/
 *.out
+
+OT/wandb/
+OT/checkpoints/
+OT/stats/
+OT/*.out

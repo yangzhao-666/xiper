@@ -6,7 +6,7 @@
 #SBATCH --gpus-per-task=1
 #SBATCH --time=24:00:00
 #SBATCH --partition=gpu_a100
-#SBATCH --array=0-11
+#SBATCH --array=0-2
 #SBATCH --output=/home/zyang/logdir/slurm/output/%A_%a.out
 
 # Conda setup
@@ -24,19 +24,20 @@ export MUJOCO_GL="egl"
 
 # Agent
 #AGENT="Viper"
-AGENT="XViper"
+AGENT="XViper_separateOT_expert_data_best_ot"
+#AGENT="OracleViper"
 
 # Define tasks and seeds
 TASKS=(
-    "dmc_cartpole_balance"
+#    "dmc_cartpole_balance"
 #"dmc_quadruped_walk"
 #"dmc_cup_catch"
-    "dmc_cheetah_run"
+#    "dmc_cheetah_run"
 #"dmc_finger_spin"
     "dmc_pointmass_easy"
 #"dmc_hopper_stand"
 #"dmc_walker_walk"
-    "dmc_cartpole_swingup"
+#    "dmc_cartpole_swingup"
 #"dmc_pendulum_swingup"
 )
 
@@ -53,10 +54,13 @@ SEED=${SEEDS[$SEED_IDX]}
 # Run training
 echo "Running TASK=$TASK | AGENT=$AGENT | SEED=$SEED"
 
+TASK_SHORT=${TASK#dmc_} 
+
 python scripts/train_dreamer.py \
   --configs dmc_vision videogpt_prior_rb \
   --task=$TASK \
   --reward_model=dmc_clen16_fskip4 \
   --reward_model_use_ot=True \
+  --reward_model_ot_path="/home/zyang/XViper/OT/checkpoints/mse/${TASK_SHORT}/SN_TN_64/T_5999.pth" \
   --logdir=./logdir/${TASK}/${AGENT}/${SEED}>"test_${SEED}.out" 2>&1
 

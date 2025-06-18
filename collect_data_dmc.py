@@ -3,6 +3,7 @@ import pathlib
 import sys
 import warnings
 from functools import partial as bind
+import os
 
 warnings.filterwarnings('ignore', '.*box bound precision lowered.*')
 warnings.filterwarnings('ignore', '.*using stateful random seeds*')
@@ -43,13 +44,20 @@ def main(argv=None):
   cleanup = []
   #import ipdb; ipdb.set_trace()
   # start taking random actions 
-  #task_list = ['dmc_cartpole_balance','dmc_cartpole_swingup', 'dmc_cheetah_run', 'dmc_cup_catch', 'dmc_finger_spin', 'dmc_finger_turn_hard', 'dmc_hopper_stand', 'dmc_pendulum_swingup', 'dmc_pointmass_easy', 'dmc_pointmass_hard', 'dmc_quadruped_run', 'dmc_quadruped_walk', 'dmc_reacher_easy', 'dmc_reacher_hard', 'dmc_walker_walk']
+  task_list = ['dmc_cartpole_balance','dmc_cartpole_swingup', 'dmc_cheetah_run', 'dmc_cup_catch', 'dmc_finger_spin', 'dmc_finger_turn_hard', 'dmc_hopper_stand', 'dmc_pendulum_swingup', 'dmc_pointmass_easy', 'dmc_pointmass_hard', 'dmc_quadruped_run', 'dmc_quadruped_walk', 'dmc_reacher_easy', 'dmc_reacher_hard', 'dmc_walker_walk']
+  output_dir = './ot_data/dmc_random_orange/'
+  os.makedirs(output_dir, exist_ok=True)
+
   task_episodes = 50
-  all_images = []
   import imageio.v2 as imageio
   import h5py
   import numpy as np
   for task in task_list:
+
+    task_output_dir = os.path.join(output_dir, f'{task}')
+    os.makedirs(task_output_dir, exist_ok=True)
+
+    all_images = []
     config = config.update({'task': task})
     env = make_env(config)
     task_steps = 0
@@ -64,10 +72,12 @@ def main(argv=None):
         all_images.append(image)
         task_steps += 1
       print('Task: {} | Episode: {}/{} | Steps: {}'.format(task, i+1, task_episodes, task_steps))
-  frames_array = np.stack(all_images)
-  with h5py.File('video_frames.h5', 'w') as f:
-    f.create_dataset('frames', data=frames_array, compression='gzip')
-  imageio.mimsave('output_video.mp4', all_images, fps=400)
+    frames_array = np.stack(all_images)
+    out_path_h5 = os.path.join(task_output_dir, f'{task}_{task_episodes}.h5')
+    with h5py.File(out_path_h5, 'w') as f:
+        f.create_dataset('frames', data=frames_array, compression='gzip')
+    out_path_mp4 = os.path.join(task_output_dir, f'{task}.mp4')
+    imageio.mimsave(out_path_mp4, all_images, fps=400)
 
 def make_logger(parsed, logdir, step, config):
   multiplier = config.env.get(config.task.split('_')[0], {}).get('repeat', 1)
