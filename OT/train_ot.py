@@ -75,7 +75,7 @@ def train_ot_model(task_config):
 
     # Initialize wandb session for this task
     wandb.init(
-        project="strong_ot",
+        project="strong_ot_R",
         name=EXP_NAME,
         config=config,
         reinit=True
@@ -172,26 +172,12 @@ def train_ot_model(task_config):
     torch.cuda.empty_cache()
 
 TASKS = [
-          #{
-            #"name": "cartpole_balance",
-            #"DATASET1": "SN",
-            #"DATASET1_PATH": "/home/zyang/XViper/ot_data/dmc_merged_gray/cartpole_balance/cartpole_balance.h5",
-            #"DATASET2": "TN",
-            #"DATASET2_PATH": "/home/zyang/XViper/ot_data/dmc_merged_orange/cartpole_balance/cartpole_balance.h5"
-          #}
-          #{
-          #  "name": "cartpole_swingup",
-          #  "DATASET1": "SN",
-          #  "DATASET1_PATH": "/home/zyang/XViper/ot_data/dmc_merged_gray/cartpole_swingup/cartpole_swingup.h5",
-          #  "DATASET2": "TN",
-          #  "DATASET2_PATH": "/home/zyang/XViper/ot_data/dmc_merged_orange/cartpole_swingup/cartpole_swingup.h5"
-          #  }
           {
             "name": "reacher_easy",
             "DATASET1": "SN",
-            "DATASET1_PATH": "/home/zyang/XViper/ot_data/dmc_merged_gray/reacher_easy/reacher_easy.h5",
+            "DATASET1_PATH": "/home/zyang/XViper/ot_data/dmc_random_gray/reacher_easy/reacher_easy.h5",
             "DATASET2": "TN",
-            "DATASET2_PATH": "/home/zyang/XViper/ot_data/dmc_merged_orange/reacher_easy/reacher_easy.h5"
+            "DATASET2_PATH": "/home/zyang/XViper/ot_data/dmc_random_orange/reacher_easy/reacher_easy.h5"
           }
         ]
 

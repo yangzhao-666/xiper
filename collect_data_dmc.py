@@ -44,8 +44,9 @@ def main(argv=None):
   cleanup = []
   #import ipdb; ipdb.set_trace()
   # start taking random actions 
-  task_list = ['dmc_cartpole_balance','dmc_cartpole_swingup', 'dmc_cheetah_run', 'dmc_cup_catch', 'dmc_finger_spin', 'dmc_finger_turn_hard', 'dmc_hopper_stand', 'dmc_pendulum_swingup', 'dmc_pointmass_easy', 'dmc_pointmass_hard', 'dmc_quadruped_run', 'dmc_quadruped_walk', 'dmc_reacher_easy', 'dmc_reacher_hard', 'dmc_walker_walk']
-  output_dir = './ot_data/dmc_random_orange/'
+  #task_list = ['dmc_cartpole_balance','dmc_cartpole_swingup', 'dmc_cheetah_run', 'dmc_cup_catch', 'dmc_finger_spin', 'dmc_finger_turn_hard', 'dmc_hopper_stand', 'dmc_pendulum_swingup', 'dmc_pointmass_easy', 'dmc_pointmass_hard', 'dmc_quadruped_run', 'dmc_quadruped_walk', 'dmc_reacher_easy', 'dmc_reacher_hard', 'dmc_walker_walk']
+  task_list = ['dmc_quadruped_walk']
+  output_dir = './test/'
   os.makedirs(output_dir, exist_ok=True)
 
   task_episodes = 50
@@ -63,7 +64,9 @@ def main(argv=None):
     task_steps = 0
     for i in range(task_episodes):
       done = False
-      while not done:
+      #while not done:
+      k = 0
+      while k < 10:
         random_action = env.env.act_space['action'].sample()
         act = {'reset': done, 'action': random_action}
         after_step = env.step(act)
@@ -71,13 +74,15 @@ def main(argv=None):
         done = after_step['is_terminal'] or after_step['is_last']
         all_images.append(image)
         task_steps += 1
+        k += 1
       print('Task: {} | Episode: {}/{} | Steps: {}'.format(task, i+1, task_episodes, task_steps))
     frames_array = np.stack(all_images)
     out_path_h5 = os.path.join(task_output_dir, f'{task}_{task_episodes}.h5')
     with h5py.File(out_path_h5, 'w') as f:
         f.create_dataset('frames', data=frames_array, compression='gzip')
     out_path_mp4 = os.path.join(task_output_dir, f'{task}.mp4')
-    imageio.mimsave(out_path_mp4, all_images, fps=400)
+    #imageio.mimsave(out_path_mp4, all_images, fps=400)
+    imageio.mimsave(out_path_mp4, all_images, fps=20)
 
 def make_logger(parsed, logdir, step, config):
   multiplier = config.env.get(config.task.split('_')[0], {}).get('repeat', 1)

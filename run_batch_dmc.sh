@@ -24,24 +24,26 @@ export MUJOCO_GL="egl"
 
 # Agent
 #AGENT="Viper"
-AGENT="XViper_separateOT_expert_data_best_ot"
+AGENT="Viper_ground"
+#AGENT="XViper_separateOT_expert_data_best_ot_ground"
 #AGENT="OracleViper"
 
 # Define tasks and seeds
 TASKS=(
 #    "dmc_cartpole_balance"
-#"dmc_quadruped_walk"
+    "dmc_quadruped_walk"
 #"dmc_cup_catch"
 #    "dmc_cheetah_run"
 #"dmc_finger_spin"
-    "dmc_pointmass_easy"
+#    "dmc_pointmass_easy"
 #"dmc_hopper_stand"
 #"dmc_walker_walk"
 #    "dmc_cartpole_swingup"
 #"dmc_pendulum_swingup"
+#    "dmc_reacher_easy"
 )
 
-SEEDS=(0 1 2)
+SEEDS=(7 8 9)
 
 # Determine current task/seed from SLURM_ARRAY_TASK_ID
 INDEX=$SLURM_ARRAY_TASK_ID
@@ -60,7 +62,7 @@ python scripts/train_dreamer.py \
   --configs dmc_vision videogpt_prior_rb \
   --task=$TASK \
   --reward_model=dmc_clen16_fskip4 \
-  --reward_model_use_ot=True \
-  --reward_model_ot_path="/home/zyang/XViper/OT/checkpoints/mse/${TASK_SHORT}/SN_TN_64/T_5999.pth" \
+  --reward_model_use_ot=False \
+  --reward_model_ot_path="/home/zyang/XViper/OT/checkpoints/mse/${TASK_SHORT}/SN_TN_64/T_8999.pth" \
   --logdir=./logdir/${TASK}/${AGENT}/${SEED}>"test_${SEED}.out" 2>&1
 
