@@ -6,7 +6,7 @@
 #SBATCH --gpus-per-task=1 
 #SBATCH --time=48:00:00
 #SBATCH --partition=gpu_a100
-#SBATCH --array=0
+#SBATCH --array=0-11
 #SBATCH --output=/home/zyang/logdir/slurm/output/%j.out
  
 conda deactivate
@@ -20,4 +20,22 @@ module load FFmpeg/6.0-GCCcore-12.3.0
 SEED=$SLURM_ARRAY_TASK_ID
 
 
-python train_ot.py>"test_${SEED}.out" 2>&1
+TASKS=(
+    "reacher_easy"
+    "pointmass_easy"
+    "pendulum_swingup"
+    "quadruped_walk"
+    "quadruped_run"
+    "hopper_stand"
+    "finger_turn_hard"
+    "finger_spin"
+    "cup_catch"
+    "cheetah_run"
+    "cartpole_swingup"
+    "cartpole_balance"
+)
+
+
+TASK_NAME="${TASKS[$SEED]}"
+
+python train_ot.py --task_name "$TASK_NAME">"test_${SEED}.out" 2>&1

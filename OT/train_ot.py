@@ -171,18 +171,21 @@ def train_ot_model(task_config):
     gc.collect()
     torch.cuda.empty_cache()
 
-TASKS = [
-          {
-            "name": "reacher_easy",
-            "DATASET1": "SN",
-            "DATASET1_PATH": "/home/zyang/XViper/ot_data/dmc_random_gray/reacher_easy/reacher_easy.h5",
-            "DATASET2": "TN",
-            "DATASET2_PATH": "/home/zyang/XViper/ot_data/dmc_random_orange/reacher_easy/reacher_easy.h5"
-          }
-        ]
-
+import argparse
 
 if __name__ == "__main__":
-    for task in TASKS:
-        train_ot_model(task)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--task_name", type=str, required=True, help="Name of the task (e.g., reacher_easy)")
+    args = parser.parse_args()
+
+    task = {
+        "name": args.task_name,
+        "DATASET1": "SN",
+        "DATASET1_PATH": f"/home/zyang/XViper/ot_data/dmc_random_gray/{args.task_name}/dmc_{args.task_name}_50.h5",
+        "DATASET2": "TN",
+        "DATASET2_PATH": f"/home/zyang/XViper/ot_data/dmc_random_orange/{args.task_name}/dmc_{args.task_name}_50.h5"
+    }
+
+    train_ot_model(task)
+
 
