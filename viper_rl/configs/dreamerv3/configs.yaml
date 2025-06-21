@@ -119,6 +119,7 @@ defaults:
   reward_model_compute_joint: True
   reward_model_use_ot: False
   reward_model_ot_path: "/home/zyang/NeuralOptimalTransport/checkpoints/mse/dmc/SN_TN_64/0_7999.pt"
+  reward_model_ot_type: "R"
 
   # AMP
   amp_rewards: {extr: 1.0, disag: 0.0}

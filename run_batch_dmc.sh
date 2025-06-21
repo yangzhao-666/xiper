@@ -58,11 +58,14 @@ echo "Running TASK=$TASK | AGENT=$AGENT | SEED=$SEED"
 
 TASK_SHORT=${TASK#dmc_} 
 
+OT_TYPE="ER" # OT pretrained model is used. ER: expert and random data; R: random data only; P: p2e data only
+
 python scripts/train_dreamer.py \
   --configs dmc_vision videogpt_prior_rb \
   --task=$TASK \
   --reward_model=dmc_clen16_fskip4 \
   --reward_model_use_ot=False \
-  --reward_model_ot_path="/home/zyang/XViper/OT/checkpoints/mse/${TASK_SHORT}/SN_TN_64/T_8999.pth" \
+  --reward_model_ot_path="/home/zyang/XViper/OT/checkpoints_${OT_TYPE}/mse/${TASK_SHORT}/SN_TN_64/T_8999.pth" \
+  --reward_model_ot_type=${OT_TYPE} \
   --logdir=./logdir/${TASK}/${AGENT}/${SEED}>"test_${SEED}.out" 2>&1
 
