@@ -6,7 +6,7 @@
 #SBATCH --gpus-per-task=1 
 #SBATCH --time=48:00:00
 #SBATCH --partition=gpu_a100
-#SBATCH --array=0-11
+#SBATCH --array=0-7
 #SBATCH --output=/home/zyang/logdir/slurm/output/%j.out
  
 conda deactivate
@@ -21,14 +21,14 @@ SEED=$SLURM_ARRAY_TASK_ID
 
 
 TASKS=(
-    "reacher_easy"
+#    "reacher_easy"
     "pointmass_easy"
     "pendulum_swingup"
     "quadruped_walk"
     "quadruped_run"
-    "hopper_stand"
-    "finger_turn_hard"
-    "finger_spin"
+#    "hopper_stand"
+#    "finger_turn_hard"
+#    "finger_spin"
     "cup_catch"
     "cheetah_run"
     "cartpole_swingup"

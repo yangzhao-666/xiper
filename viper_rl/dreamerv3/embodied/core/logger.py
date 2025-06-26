@@ -237,8 +237,8 @@ class WandBOutput:
 
         wandb.init(
             #project="dreamerv3_XD",
-            #project="dreamerv3",
-            project="viper",
+            project="dreamerv3",
+            #project="viper",
             #project="p2e",
             name=logdir.name,
             # sync_tensorboard=True,,

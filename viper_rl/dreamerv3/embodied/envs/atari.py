@@ -11,6 +11,7 @@ class Atari(embodied.Env):
         repeat=4,
         size=(84, 84),
         gray=True,
+        stripe=False,
         noops=0,
         lives="unused",
         sticky=True,
@@ -44,6 +45,7 @@ class Atari(embodied.Env):
         self._repeat = repeat
         self._size = size
         self._gray = gray
+        self._strip = stripe
         self._noops = noops
         self._lives = lives
         self._sticky = sticky
@@ -64,6 +66,29 @@ class Atari(embodied.Env):
         self._last_lives = None
         self._done = True
         self._step = 0
+
+        # Define 5 stripe colors as multipliers (0–1 range)
+        stripe_multipliers = [
+            [1.0, 0.8, 0.8],  # slight red tint
+            [0.8, 1.0, 0.8],  # slight green tint
+            [0.8, 0.8, 1.0],  # slight blue tint
+            [1.0, 1.0, 0.5],  # yellowish
+            [0.5, 1.0, 1.0],  # cyan tint
+        ]
+
+        # Create mask of ones
+        mask = np.ones((64, 64, 3), dtype=np.float32)
+
+        # Each stripe height
+        stripe_height = 64 // 5
+
+        # Apply multipliers to each stripe
+        for i in range(5):
+            start_row = i * stripe_height
+            end_row = (i + 1) * stripe_height if i < 4 else 64  # handle remainder
+            mask[start_row:end_row, :, :] = stripe_multipliers[i]
+        self.target_domain_mask = mask
+
 
     @property
     def obs_space(self):
@@ -139,9 +164,14 @@ class Atari(embodied.Env):
                 image = self._image.fromarray(image)
                 image = image.resize(self._size, self._image.NEAREST)
                 image = np.array(image)
+        ### add strips to the obs
+        if self._strip:
+            image = (image * self.target_domain_mask).astype(np.uint8)
         if self._gray:
-            weights = [0.299, 0.587, 1 - (0.299 + 0.587)]
+            weights = [0.299, 0.587, 1 - (0.299 + 0.587)] # original gray
+            #weights = [1, 1, 0]  # new black-white scheme
             image = np.tensordot(image, weights, (-1, 0)).astype(image.dtype)
+
             image = image[:, :, None]
         return dict(
             image=image,

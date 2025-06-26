@@ -72,9 +72,9 @@ def main(argv=None):
         task_steps += 1
       print('Task: {} | Episode: {}/{} | Steps: {}'.format(task, i+1, task_episodes, task_steps))
   frames_array = np.stack(all_images)
-  with h5py.File('gray_atari.h5', 'w') as f:
-    f.create_dataset('frames', data=frames_array, compression='gzip')
-  #imageio.mimsave('gray_atari.mp4', all_images, fps=400)
+  #with h5py.File('gray_atari.h5', 'w') as f:
+  #  f.create_dataset('frames', data=frames_array, compression='gzip')
+  imageio.mimsave('gray_atari.mp4', all_images, fps=400)
 
 def make_logger(parsed, logdir, step, config):
   multiplier = config.env.get(config.task.split('_')[0], {}).get('repeat', 1)
