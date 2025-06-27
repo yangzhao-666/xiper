@@ -39,13 +39,13 @@ def gif_to_seq(gif_path, camera_key='image') -> list:
 
 print('Available reward models:', LOAD_REWARD_MODEL_DICT.keys())
 
-#rm_key = 'dmc_clen16_fskip4'
-rm_key = 'atari_clen16_fskip4_mask'
+rm_key = 'dmc_clen16_fskip4'
+#rm_key = 'atari_clen16_fskip4_mask'
 
-reward_model = LOAD_REWARD_MODEL_DICT[rm_key](task='atari_pong', minibatch_size=2, encoding_minibatch_size=32, compute_joint=True, use_ot=True, ot_path="/home/zyang/NeuralOptimalTransport/checkpoints/mse/atari/SN_TN_64/0_999.pt")
+reward_model = LOAD_REWARD_MODEL_DICT[rm_key](task='dmc_cheetah_run', minibatch_size=2, encoding_minibatch_size=32, compute_joint=True, use_ot=True, ot_path="/home/zyang/XViper/OT/checkpoints_R/mse/cheetah_run/SN_TN_64/T_9999.pth")
 
 # Directory containing .gif files
-gif_dir = './good_bad_videos/atari_pong/good_videos/'
+gif_dir = './good_bad_videos/dmc_cheetah_run/bad_videos/'
 reward_list = []
 
 # Process each .gif
@@ -58,10 +58,10 @@ for file_name in os.listdir(gif_dir):
         viper_seq = reward_model(seq)
 
         rewards = [s['density'] for s in viper_seq]
-        #reward_list.append(rewards[:800]) # for dmc
+        reward_list.append(rewards[:500]) # for dmc
         #reward_list.append(rewards[:600]) # for pong
-        reward_list.append(rewards[:1000]) # for pong
+        #reward_list.append(rewards[:1000]) # for pong
 
 # Save the full reward list
-np.save('mid_pong_rewards_ot.npy', reward_list)
+np.save('bad_cheetah_rewards_ot.npy', reward_list)
 print("Saved all rewards.")
