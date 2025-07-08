@@ -25,6 +25,9 @@ For more information:
 We took hacky ways to change the appearance of two domains:
 - Atari: we change all atari tasks to gray by setting env arg ```gray=True```. Then the pixel state becomes (64, 64, 1). We first mulitple by mask (64, 64, 3) then we can get a (64, 64, 3) and train OT. For drv3's logging, it can not handle (64, 64, 1). We hacked it by modifying pillow.py at ```/home/zyang/.conda/envs/viper/lib/python3.8/site-packages/imageio/plugins/pillow.py```. line 433 to ```ndimage = np.repeat(ndimage, 3, axis=-1)```.
 - DMC: we change agents' body to gray in all dmc tasks, by modifying the xml file at: ```~/.conda/envs/viper/lib/python3.8/site-packages/dm_control/suite/common/materials.xml```, changed the ```self``` rgb values from ```[0.7, 0.5, 0.3, 1] -> [.3 .3 .3 1]```.
+- DMC:
+  - we change cheetah's body bigger shape, by modifying the xml file at: ```~/.conda/envs/viper/lib/python3.8/site-packages/dm_control/suite/cheetah.xml```, changed ```capsule size=0.046``` to ```0.066```.
+  - we change cartpole's pole to longer, by modifying the xml file at: ```~/.conda/envs/viper/lib/python3.8/site-packages/dm_control/suite/cartpole.xml```, changed ```capsule size=0.045``` to ```0.095```.
 - DMC Quadruped: to make quadruped always start from the ground, we modified ```orientation = self.random.randn(4)``` -> ```orientation = np.array([0.0, 0.0, 0.0, 1.0])``` in ```~/.conda/envs/viper/lib/python3.8/site-packages/dm_control/suite/quadruped.py```
 
 VIPER leverages the next-frame log likelihoods of a pre-trained video prediction model as rewards for downstream reinforcement learning tasks. The method is flexible to the particular choice of video prediction model and reinforcement learning algorithm. The general method outline is shown below:
@@ -34,7 +37,7 @@ VIPER leverages the next-frame log likelihoods of a pre-trained video prediction
 This code release provides a reference VIPER implementation which uses [VideoGPT](https://arxiv.org/abs/2104.10157) as the video prediction model and [DreamerV3](https://arxiv.org/abs/2301.04104) as the reinforcement learning agorithm.
 
 ## Install:
-
+ 
 Create a conda environment with Python 3.8:
 
 ```
