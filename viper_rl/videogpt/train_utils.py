@@ -121,7 +121,8 @@ def init_model_state_videogpt(rng, model, batch, config):
         **batch,
         training=True,
         method=model.loss
-    ).unfreeze()
+    #).unfreeze()
+    )
     params = variables.pop('params')
     assert len(variables) == 0
     print_model_size(params)
@@ -141,7 +142,8 @@ def init_model_state_vqgan(rng, model, batch, config):
         rngs={'params': rng, 'dropout': rng},
         image=batch['image'],
         deterministic=False
-    ).unfreeze()
+    #).unfreeze()
+    )
     vqgan_params = variables.pop('params')
     print_model_size(vqgan_params, name='vqgan')
 
@@ -149,7 +151,8 @@ def init_model_state_vqgan(rng, model, batch, config):
         rngs={'params': rng},
         image=batch['image'],
         deterministic=False
-    ).unfreeze()
+    #).unfreeze()
+    )
     disc_params = variables.pop('params')
     disc_model_state = variables
     print_model_size(disc_params, name='disc')

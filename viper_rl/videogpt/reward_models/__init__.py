@@ -31,7 +31,16 @@ LOAD_REWARD_MODEL_DICT = {
   'atari_clen16_fskip4': bind_videogpt_reward_model(  # Frame skip 4
     videogpt_path=get_path('atari_videogpt_l4_s4'),
     vqgan_path=get_path('atari_vqgan')),
-  'atari_clen16_fskip4_mask': bind_videogpt_reward_model(  # Frame skip 4
+  'atari_clen16_fskip4_mask': bind_videogpt_reward_model(  # Frame skip 4 mask
     videogpt_path=get_path('atari_videogpt_l4_s4_mask'),
+    vqgan_path=get_path('atari_vqgan')),
+  'atari_clen16_fskip1_mask': bind_videogpt_reward_model(  # No frame skip mask
+    videogpt_path=get_path('atari_videogpt_l16_s1_mask'),
+    vqgan_path=get_path('atari_vqgan')),
+  'atari_clen16_fskip2_mask': bind_videogpt_reward_model(  # Frame skip 2 mask
+    videogpt_path=get_path('atari_videogpt_l8_s2_mask'),
+    vqgan_path=get_path('atari_vqgan')),
+  'atari_clen16_fskip1_mask_self': bind_videogpt_reward_model(  # No frame skip mask self-trained 500k
+    videogpt_path=get_path('atari_videogpt_l16_s1_mask_self'),
     vqgan_path=get_path('atari_vqgan')),
 }

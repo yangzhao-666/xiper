@@ -6,8 +6,8 @@
 #SBATCH --gpus-per-task=1
 #SBATCH --time=24:00:00
 #SBATCH --partition=gpu_a100
-#SBATCH --array=0-1
-#SBATCH --output=/home/zyang/logdir/slurm/output/%A_%a.out
+#SBATCH --array=0-2
+#SBATCH --output=/home/zyang2/logdir/slurm/output/%A_%a.out
 
 # Conda setup
 conda deactivate
@@ -24,13 +24,13 @@ export MUJOCO_GL="egl"
 
 # Agent
 #AGENT="Viper"
-AGENT="Drv3"
+AGENT="Drv3_color"
 
 # Define tasks and seeds
 TASKS=(
     "atari_pong"
 #    "atari_freeway"
-#    "atari_kangaroo"
+    "atari_kangaroo"
     "atari_boxing"
 #    "atari_atlantis"
 )

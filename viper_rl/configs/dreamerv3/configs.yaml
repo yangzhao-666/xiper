@@ -29,7 +29,7 @@ defaults:
     steps: 1e7
     expl_until: 0
     log_every: 300
-    save_every: 900
+    save_every: 1e10 # never save
     eval_every: 1e6
     eval_initial: True
     eval_eps: 1
@@ -56,7 +56,7 @@ defaults:
   envs: {amount: 4, parallel: process, length: 0, reset: True, restart: True, discretize: 0, checks: False}
   wrapper: {length: 0, reset: True, discretize: 0, checks: False, density: False}
   env:
-    atari: {size: [64, 64], repeat: 4, sticky: True, gray: False, stripe: True, actions: all, lives: unused, noops: 0, resize: opencv}
+    atari: {size: [64, 64], repeat: 4, sticky: True, gray: False, stripe: False, actions: all, lives: unused, noops: 0, resize: opencv}
     dmlab: {size: [64, 64], repeat: 4, episodic: True}
     minecraft: {size: [64, 64], break_speed: 100.0}
     dmc: {size: [64, 64], repeat: 2, camera: -1}
@@ -171,7 +171,7 @@ atari:
   task: atari_pong
   envs.amount: 8
   run:
-    steps: 5.5e7
+    steps: 1e8
     eval_eps: 10
     train_ratio: 64
   encoder: {mlp_keys: '$^', cnn_keys: 'image'}

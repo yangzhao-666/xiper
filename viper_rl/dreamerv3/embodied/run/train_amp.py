@@ -107,7 +107,8 @@ def train_amp(agent, env, replay, reference_replay, logger, args):
     checkpoint.replay = replay
     if args.from_checkpoint:
         checkpoint.load(args.from_checkpoint)
-    checkpoint.load_or_save()
+    print('not saving ckpt')
+    #checkpoint.load_or_save()
     should_save(step)  # Register that we jused saved.
 
     print("Start training loop.")
@@ -117,5 +118,6 @@ def train_amp(agent, env, replay, reference_replay, logger, args):
     while step < args.steps:
         driver(policy, steps=100)
         if should_save(step):
-            checkpoint.save()
+            #checkpoint.save()
+            print('not saving ckpt')
     logger.write()

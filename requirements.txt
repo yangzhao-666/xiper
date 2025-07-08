@@ -14,7 +14,6 @@ ffmpeg-python
 internetarchive
 cloudpickle
 crafter
-jaxlib
 numpy
 optax
 rich

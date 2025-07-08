@@ -239,6 +239,8 @@ class WandBOutput:
             #project="dreamerv3_XD",
             project="dreamerv3",
             #project="viper",
+            #project="xiper_atari",
+            #project="viper_ablation",
             #project="p2e",
             name=logdir.name,
             # sync_tensorboard=True,,

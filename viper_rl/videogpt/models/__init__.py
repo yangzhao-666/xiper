@@ -13,7 +13,10 @@ from .stylegan_disc import StyleGANDisc
 from .vqgan import VQGAN
 
 
+import orbax.checkpoint as ocp
+
 def load_videogpt(path, replicate=True, ae=None):
+    checkpointer = ocp.Checkpointer(ocp.PyTreeCheckpointHandler())
     config = pickle.load(open(osp.join(path, 'args'), 'rb'))
     if ae is None:
         ae = AE(config.ae_ckpt, mode='pmap' if replicate else 'jit')
@@ -26,7 +29,7 @@ def load_videogpt(path, replicate=True, ae=None):
     else:
         class_map = None
 
-    state = checkpoints.restore_checkpoint(osp.join(path, 'checkpoints'), None)
+    state = checkpoints.restore_checkpoint(osp.join(path, 'checkpoints'), None, orbax_checkpointer=checkpointer)
     variables = {'params': state['ema_params'] or state['params']}
     if replicate:
         variables = jax_utils.replicate(variables)
@@ -34,6 +37,7 @@ def load_videogpt(path, replicate=True, ae=None):
 
     
 def load_vqgan(path, replicate=True):
+    checkpointer = ocp.Checkpointer(ocp.PyTreeCheckpointHandler())
     config = pickle.load(open(osp.join(path, 'args'), 'rb'))
     model = VQGAN(**config.ae)
     
@@ -44,7 +48,7 @@ def load_vqgan(path, replicate=True):
     else:
         mask_map = None
     
-    state = checkpoints.restore_checkpoint(osp.join(path, 'checkpoints'), None)
+    state = checkpoints.restore_checkpoint(osp.join(path, 'checkpoints'), None, orbax_checkpointer=checkpointer)
     variables = {'params': state['vqgan_params']}
     if replicate:
         variables = jax_utils.replicate(variables)

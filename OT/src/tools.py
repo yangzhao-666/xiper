@@ -52,8 +52,8 @@ def load_dataset(name, path, img_size=64, batch_size=64, test_ratio=0.1, device=
     train_idx, test_idx = idx[:-test_size], idx[-test_size:]
     train_set, test_set = Subset(dataset, train_idx), Subset(dataset, test_idx)
 
-    train_sampler = LoaderSampler(DataLoader(train_set, shuffle=True, num_workers=8, batch_size=batch_size), device)
-    test_sampler = LoaderSampler(DataLoader(test_set, shuffle=True, num_workers=8, batch_size=batch_size), device)
+    train_sampler = LoaderSampler(DataLoader(train_set, shuffle=True, num_workers=4, batch_size=batch_size), device)
+    test_sampler = LoaderSampler(DataLoader(test_set, shuffle=True, num_workers=4, batch_size=batch_size), device)
     return train_sampler, test_sampler
 
 def ewma(x, span=200):

@@ -15,8 +15,8 @@ optimizer: "adam"
 lr_schedule: "constant"
 
 image_size: 64
-seq_len: 4
-frame_skip: 4
+seq_len: 16
+frame_skip: 1
 ae_ckpt: "viper_rl_data/checkpoints/atari_vqgan"
 
 n_classes: null

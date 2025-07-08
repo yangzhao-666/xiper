@@ -58,3 +58,5 @@ OT/wandb/
 OT/checkpoints*/
 OT/stats*/
 OT/*.out
+xail_data/
+analysis_videos/

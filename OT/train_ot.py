@@ -54,7 +54,7 @@ def train_ot_model(task_config):
     DATASET2, DATASET2_PATH = task_config["DATASET2"], task_config["DATASET2_PATH"]
 
     EXP_NAME = f'{task}_T{T_ITERS}_{COST}_{IMG_SIZE}'
-    OUTPUT_PATH = f'./checkpoints/{COST}/{task}/{DATASET1}_{DATASET2}_{IMG_SIZE}/'
+    OUTPUT_PATH = f'./checkpoints_xAIL/{COST}/{task}/{DATASET1}_{DATASET2}_{IMG_SIZE}/'
     os.makedirs(OUTPUT_PATH, exist_ok=True)
 
     config = dict(
@@ -75,7 +75,7 @@ def train_ot_model(task_config):
 
     # Initialize wandb session for this task
     wandb.init(
-        project="strong_ot_R",
+        project="strong_ot_R_xAIL",
         name=EXP_NAME,
         config=config,
         reinit=True
@@ -181,9 +181,11 @@ if __name__ == "__main__":
     task = {
         "name": args.task_name,
         "DATASET1": "SN",
-        "DATASET1_PATH": f"/home/zyang/XViper/ot_data/dmc_random_gray/{args.task_name}/dmc_{args.task_name}_50.h5",
+        #"DATASET1_PATH": f"/home/zyang/XViper/ot_data/dmc_random_orange/{args.task_name}/dmc_{args.task_name}_50.h5",
+        "DATASET1_PATH": f"/home/zyang2/XViper/ot_data/atari_ot_data/atari_random_colored/{args.task_name}/{args.task_name}_masked_images.h5",
         "DATASET2": "TN",
-        "DATASET2_PATH": f"/home/zyang/XViper/ot_data/dmc_random_orange/{args.task_name}/dmc_{args.task_name}_50.h5"
+        #"DATASET2_PATH": f"/home/zyang/XViper/ot_data/dmc_random_gray/{args.task_name}/dmc_{args.task_name}_50.h5"
+        "DATASET2_PATH": f"/home/zyang2/XViper/ot_data/atari_ot_data/atari_random_gray/{args.task_name}/{args.task_name}_masked_images.h5",
     }
 
     train_ot_model(task)

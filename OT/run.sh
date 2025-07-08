@@ -1,13 +1,13 @@
 #!/bin/bash                                                                                  
 #modified by Zhao Yang, originally from Edward Hu
  
-#SBATCH --cpus-per-gpu=16
+#SBATCH --cpus-per-gpu=18
 #SBATCH --gpus=1
 #SBATCH --gpus-per-task=1 
 #SBATCH --time=48:00:00
-#SBATCH --partition=gpu_a100
-#SBATCH --array=0-7
-#SBATCH --output=/home/zyang/logdir/slurm/output/%j.out
+#SBATCH --partition=gpu_h100
+#SBATCH --array=0-2
+#SBATCH --output=/home/zyang2/logdir/slurm/output/%j.out
  
 conda deactivate
 conda deactivate
@@ -22,17 +22,22 @@ SEED=$SLURM_ARRAY_TASK_ID
 
 TASKS=(
 #    "reacher_easy"
-    "pointmass_easy"
-    "pendulum_swingup"
-    "quadruped_walk"
-    "quadruped_run"
+#"pointmass_easy"
+#    "pendulum_swingup"
+#    "quadruped_walk"
+#    "quadruped_run"
 #    "hopper_stand"
 #    "finger_turn_hard"
 #    "finger_spin"
-    "cup_catch"
-    "cheetah_run"
-    "cartpole_swingup"
-    "cartpole_balance"
+#    "cup_catch"
+#    "cheetah_run"
+#    "cartpole_swingup"
+#    "cartpole_balance"
+        "atari_pong"
+#"atari_freeway"
+        "atari_boxing"
+#"atari_atlantis"
+        "atari_kangaroo"
 )
 
 

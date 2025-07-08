@@ -29,6 +29,10 @@ from viper_rl.videogpt.train_utils import init_model_state_videogpt, get_first_d
 
 def main():
     global model
+    import orbax.checkpoint as ocp
+
+    checkpointer = ocp.Checkpointer(ocp.PyTreeCheckpointHandler())
+
     rng = jax.random.PRNGKey(config.seed)
     rng, init_rng = jax.random.split(rng)
 
@@ -80,7 +84,16 @@ def main():
             visualize(sampler, ae, iteration, state, test_loader)
         if iteration % config.save_interval == 0 and is_master_process and is_best:
             state_ = jax_utils.unreplicate(state)
-            save_path = checkpoints.save_checkpoint(ckpt_dir, state_, state_.step, keep=1, overwrite=True)
+            #save_path = checkpoints.save_checkpoint(ckpt_dir, state_, state_.step, keep=1, overwrite=True)
+            save_path = checkpoints.save_checkpoint(
+                ckpt_dir=ckpt_dir,
+                target=state_,
+                step=state_.step,
+                keep=1,
+                overwrite=True,
+                orbax_checkpointer=checkpointer,
+            )
+
             print('Saved checkpoint to', save_path)
             del state_
         iteration += 1

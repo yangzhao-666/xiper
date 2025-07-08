@@ -6,8 +6,8 @@
 #SBATCH --gpus-per-task=1
 #SBATCH --time=24:00:00
 #SBATCH --partition=gpu_a100
-#SBATCH --array=0-13
-#SBATCH --output=/home/zyang/logdir/slurm/output/%A_%a.out
+#SBATCH --array=0-7
+#SBATCH --output=/home/zyang2/logdir/slurm/output/%A_%a.out
 
 # Conda setup
 conda deactivate
@@ -32,16 +32,16 @@ TASKS=(
     "dmc_cartpole_swingup"
     "dmc_cheetah_run"
     "dmc_cup_catch"
-    "dmc_finger_spin"
-    "dmc_finger_turn_hard"
-    "dmc_hopper_stand"
+#"dmc_finger_spin"
+#"dmc_finger_turn_hard"
+#   "dmc_hopper_stand"
     "dmc_pendulum_swingup"
     "dmc_pointmass_easy"
-    "dmc_pointmass_hard"
+#    "dmc_pointmass_hard"
     "dmc_quadruped_run"
     "dmc_quadruped_walk"
-    "dmc_reacher_easy"
-    "dmc_reacher_hard"
+#    "dmc_reacher_easy"
+#    "dmc_reacher_hard"
 #    "dmc_walker_walk"
 )
 
