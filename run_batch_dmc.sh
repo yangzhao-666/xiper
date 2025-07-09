@@ -5,8 +5,8 @@
 #SBATCH --gpus=1
 #SBATCH --gpus-per-task=1
 #SBATCH --time=28:00:00
-#SBATCH --partition=gpu_h100
-#SBATCH --array=0-2
+#SBATCH --partition=gpu_a100
+#SBATCH --array=0-8
 #SBATCH --output=/home/zyang2/logdir/slurm/output/%A_%a.out
 
 # Conda setup
@@ -27,7 +27,7 @@ export MUJOCO_GL="egl"
 #AGENT="Xiper_ot_R_fid_High"
 #AGENT="XViper_separateOT_expert_data_best_ot_ground"
 #AGENT="OracleViper"
-AGENT="Viper_stronger_RM"
+AGENT="Viper_bigger"
 
 # Define tasks and seeds
 TASKS=(
@@ -35,12 +35,12 @@ TASKS=(
 #    "dmc_quadruped_walk"
 #"dmc_quadruped_run"
 #    "dmc_cup_catch"
-#    "dmc_cheetah_run"
+    "dmc_cheetah_run"
 #"dmc_finger_spin"
 #    "dmc_pointmass_easy"
 #"dmc_hopper_stand"
 #"dmc_walker_walk"
-#"dmc_cartpole_swingup"
+    "dmc_cartpole_swingup"
 #    "dmc_pendulum_swingup"
 #    "dmc_reacher_easy"
 )
@@ -65,7 +65,7 @@ OT_TYPE="R" # OT pretrained model is used. ER: expert and random data; R: random
 python scripts/train_dreamer.py \
   --configs dmc_vision videogpt_prior_rb \
   --task=$TASK \
-  --reward_model=dmc_clen16_fskip1 \
+  --reward_model=dmc_clen16_fskip4 \
   --reward_model_use_ot=False \
   --reward_model_ot_path="/home/zyang2/XViper/OT/checkpoints_${OT_TYPE}/mse/${TASK_SHORT}/SN_TN_64/T_4999.pth" \
   --reward_model_ot_type=${OT_TYPE} \

@@ -237,8 +237,8 @@ class WandBOutput:
 
         wandb.init(
             #project="dreamerv3_XD",
-            project="dreamerv3",
-            #project="viper",
+            #project="dreamerv3",
+            project="xiper_dmc",
             #project="xiper_atari",
             #project="viper_ablation",
             #project="p2e",

@@ -54,7 +54,7 @@ TASK_SHORT=${TASK#dmc_}
 OT_TYPE="R" # OT pretrained model is used. ER: expert and random data; R: random data only; P: p2e data only
 
 python scripts/train_dreamer.py \
-  --configs dmc_vision motion_prior \
+  --configs atari motion_prior \
   --task=$TASK \
   --reference_dir="./xail_data/${TASK}" \
   --reward_model_use_ot=False \

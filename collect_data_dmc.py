@@ -44,9 +44,9 @@ def main(argv=None):
   cleanup = []
   #import ipdb; ipdb.set_trace()
   # start taking random actions 
-  task_list = ['dmc_cartpole_balance','dmc_cartpole_swingup', 'dmc_cheetah_run', 'dmc_cup_catch', 'dmc_finger_spin', 'dmc_finger_turn_hard', 'dmc_hopper_stand', 'dmc_pendulum_swingup', 'dmc_pointmass_easy', 'dmc_pointmass_hard', 'dmc_quadruped_run', 'dmc_quadruped_walk', 'dmc_reacher_easy', 'dmc_reacher_hard', 'dmc_walker_walk']
-  #task_list = ['dmc_quadruped_walk', 'dmc_quadruped_run']
-  output_dir = './ot_data/dmc_random_test/'
+  #task_list = ['dmc_cartpole_balance','dmc_cartpole_swingup', 'dmc_cheetah_run', 'dmc_cup_catch', 'dmc_finger_spin', 'dmc_finger_turn_hard', 'dmc_hopper_stand', 'dmc_pendulum_swingup', 'dmc_pointmass_easy', 'dmc_pointmass_hard', 'dmc_quadruped_run', 'dmc_quadruped_walk', 'dmc_reacher_easy', 'dmc_reacher_hard', 'dmc_walker_walk']
+  task_list = ['dmc_cartpole_balance', 'dmc_cartpole_swingup', 'dmc_cheetah_run']
+  output_dir = './ot_data/dmc_random_shape/'
   os.makedirs(output_dir, exist_ok=True)
 
   task_episodes = 50

@@ -30,14 +30,14 @@ TASKS=(
 #    "finger_turn_hard"
 #    "finger_spin"
 #    "cup_catch"
-#    "cheetah_run"
-#    "cartpole_swingup"
-#    "cartpole_balance"
-        "atari_pong"
+    "cheetah_run"
+    "cartpole_swingup"
+    "cartpole_balance"
+#        "atari_pong"
 #"atari_freeway"
-        "atari_boxing"
+#        "atari_boxing"
 #"atari_atlantis"
-        "atari_kangaroo"
+#        "atari_kangaroo"
 )
 
 
