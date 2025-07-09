@@ -9,7 +9,7 @@
 #SBATCH --array=0-2
 #SBATCH --output=/home/zyang2/logdir/slurm/output/%A_%a.out
 
-# Conda setup
+# Conda setu
 conda deactivate
 conda deactivate
 conda deactivate
