@@ -69,8 +69,8 @@ def process_npz_directory(model, input_dir, output_dir, device, fps=24, batch_si
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model_path', type=str, default='/home/zyang2/XViper/OT/checkpoints_xAIL/mse/atari_kangaroo/SN_TN_64/T_7999.pth')
-    parser.add_argument('--input_dir', type=str, default='/home/zyang2/XViper/xail_data/atari_kangaroo/')
+    parser.add_argument('--model_path', type=str, default='/home/zyang2/XViper/OT/checkpoints_dmc_bigger_xail/mse/cartpole_balance/SN_TN_64/T_5999.pth')
+    parser.add_argument('--input_dir', type=str, default='/home/zyang2/XViper/xail_data/dmc_cartpole_balance_body/')
     parser.add_argument('--output_dir', type=str, default='/home/zyang2/XViper/xail_data/')
     parser.add_argument('--fps', type=int, default=24)
     parser.add_argument('--batch_size', type=int, default=32)

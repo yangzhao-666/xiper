@@ -6,7 +6,7 @@
 #SBATCH --gpus-per-task=1 
 #SBATCH --time=48:00:00
 #SBATCH --partition=gpu_h100
-#SBATCH --array=0-2
+#SBATCH --array=0
 #SBATCH --output=/home/zyang2/logdir/slurm/output/%j.out
  
 conda deactivate
@@ -31,8 +31,8 @@ TASKS=(
 #    "finger_spin"
 #    "cup_catch"
     "cheetah_run"
-    "cartpole_swingup"
-    "cartpole_balance"
+#    "cartpole_swingup"
+#    "cartpole_balance"
 #        "atari_pong"
 #"atari_freeway"
 #        "atari_boxing"
