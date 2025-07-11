@@ -246,6 +246,7 @@ class WandBOutput:
             # sync_tensorboard=True,,
             entity="zhao666",
             config=dict(config),
+            mode="disabled"
         )
         self._wandb = wandb
 

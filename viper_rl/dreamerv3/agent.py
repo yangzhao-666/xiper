@@ -210,6 +210,7 @@ class WorldModel(nj.Module):
 
         additional_metrics = {}
 
+        import ipdb; ipdb.set_trace()
         if self.amp:
             idxs = list(
                 range(reference_data["is_first"].shape[1] - self.config.amp_window)
