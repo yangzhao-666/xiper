@@ -273,6 +273,88 @@ class GradientReversalLayer(nj.Module):
         return grad_reverse(x)
 
 
+class TPILDiscriminator(nj.Module):
+    def __init__(
+        self,
+        shapes,
+        cnn_keys=r".*",
+        mlp_layers=4,
+        mlp_units=512,
+        cnn="resize",
+        cnn_depth=48,
+        cnn_blocks=2,
+        resize="stride",
+        symlog_inputs=False,
+        minres=4,
+        grl_enabled=False,  # NEW FLAG
+        **kw,
+    ):
+        excluded = r"(is_first|is_last)"
+        shapes = {
+            k: v
+            for k, v in shapes.items()
+            if (not re.match(excluded, k) and not k.startswith("log_"))
+        }
+        self.cnn_shapes = {
+            k: v for k, v in shapes.items() if (len(v) == 3 and re.match(cnn_keys, k))
+        }
+        self.shapes = self.cnn_shapes
+        print("Discriminator CNN shapes:", self.cnn_shapes)
+
+        cnn_kw = {**kw, "minres": minres, "name": "cnn"}
+        if cnn == "resnet":
+            self._cnn = ImageEncoderResnet(cnn_depth, cnn_blocks, resize, **cnn_kw)
+        else:
+            raise NotImplementedError(cnn)
+
+        logit_kw = {**kw, "symlog_inputs": symlog_inputs, "name": "logit_mlp"}
+        self._logit_mlp = MLP(
+            layers=mlp_layers, units=mlp_units, dims="tensor", shape=None, **logit_kw
+        )
+
+        # Domain discriminator head (optional)
+        self.grl_enabled = grl_enabled
+        if grl_enabled:
+            self._domain_mlp = MLP(
+                layers=2, units=mlp_units, dims="tensor", shape=None,
+                name="domain_mlp", **kw
+            )
+            self._domain_proj = self.get("domain_logit", Linear, 1, "none", "none", False)
+
+    def __call__(self, data):
+        some_key, some_shape = list(self.shapes.items())[0]
+        batch_dims = data[some_key].shape[: -(1 + len(some_shape))]
+        data = {
+            k: v.reshape((-1,) + v.shape[len(batch_dims):]) for k, v in data.items()
+        }
+        inputs = jnp.concatenate([data[k] for k in self.cnn_shapes], -1)
+        inputs = jnp.transpose(inputs, (0, 2, 3, 1, 4))
+        inputs = jnp.reshape(inputs, inputs.shape[:3] + (np.prod(inputs.shape[3:]),))
+        
+        # Shared CNN feature extractor
+        features = self._cnn(inputs)
+        features = features.reshape((features.shape[0], -1))
+        features = features.reshape(batch_dims + features.shape[1:])
+
+        # Behavior discriminator
+        logits = self._logit_mlp(features)
+        behavior_out = self.get("disc_logit", Linear, 1, "none", "none", False)(logits)
+        behavior_out = behavior_out.reshape(behavior_out.shape[:-1])
+
+        # Domain discriminator (optional)
+        domain_out = None
+        if self.grl_enabled:
+            reversed_features = GradientReversalLayer()(features)
+            domain_logits = self._domain_mlp(reversed_features)
+            domain_out = self._domain_proj(domain_logits)
+            domain_out = domain_out.reshape(domain_out.shape[:-1])
+
+        return {
+            "behavior": behavior_out,
+            "domain": domain_out,
+        }
+
+
 class MultiEncoder(nj.Module):
     def __init__(
         self,
