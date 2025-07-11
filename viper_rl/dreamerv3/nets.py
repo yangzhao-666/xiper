@@ -257,6 +257,22 @@ class Discriminator(nj.Module):
         return projection
 
 
+class GradientReversalLayer(nj.Module):
+    def __call__(self, x):
+        def grad_reverse(x):
+            @jax.custom_vjp
+            def identity(x):
+                return x
+            def fwd(x):
+                return x, ()
+            def bwd(_, g):
+                return (-g,)  # Reverse the gradient
+            identity.defvjp(fwd, bwd)
+            return identity(x)
+
+        return grad_reverse(x)
+
+
 class MultiEncoder(nj.Module):
     def __init__(
         self,

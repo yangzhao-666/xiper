@@ -156,6 +156,7 @@ class WorldModel(nj.Module):
         self.amp = (config.task_behavior == "MotionPrior") or (
             config.expl_behavior == "MotionPrior"
         )
+
         if self.amp:
             self.discriminator = nets.Discriminator(
                 shapes, **config.discriminator, name="discriminator"
