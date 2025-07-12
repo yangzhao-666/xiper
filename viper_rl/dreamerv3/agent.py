@@ -158,6 +158,8 @@ class WorldModel(nj.Module):
         )
 
         self.tpil = config.tpil
+        if self.tpil:
+            self.amp = False
 
         if self.amp:
             self.discriminator = nets.Discriminator(
@@ -349,17 +351,29 @@ class WorldModel(nj.Module):
                 lambda x: x.reshape((-1,) + x.shape[len(amp_batch_dims) :]),
                 amp_reference_data_stacks,
             )
-            policy_d = self.discriminator(sg(amp_data_stacks))
-            reference_d, reference_d_grad = jax.vmap(
+            import ipdb; ipdb.set_trace()
+            # policy_d: predicted task label for agent data; policy_domain_label: predicted domain label for agent data
+            policy_d, policy_domain_label_predicted = self.discriminator(sg(amp_data_stacks))
+            reference_d, reference_d_grad, reference_domain_label_predicted, reference_domain_label_grad = jax.vmap(
                 jax.value_and_grad(self.discriminator, has_aux=False)
             )(sg(amp_reference_data_stacks))
             loss = lambda x, y: (x - y) ** 2
-            reference_labels, policy_labels = jnp.ones_like(
-                reference_d
-            ), -1 * jnp.ones_like(policy_d)
+
+            # creating task / behaviors labels. random / agent: -1, expert: 1
+            task_mask = reference_data["behavior"]
+            reference_labels = task_mask[:, :self.config.amp_window].reshape(-1)
+            policy_labels = -1 * jnp.ones_like(policy_d)
             loss_reference = loss(reference_labels, reference_d)
             loss_policy = loss(policy_labels, policy_d)
-            loss_disc = 0.5 * (loss_reference + loss_policy)
+
+            # creating domain labels. expert domain: 1, agent / policy domain: -1.
+            reference_labels_domain, policy_labels_domain = jnp.ones_like(
+                reference_d
+            ), -1 * jnp.ones_like(policy_d)
+            loss_reference_domain = loss(reference_labels_domain, reference_domain_label_predicted)
+            loss_policy_domain = loss(policy_domain_label, policy_domain_label_predicted)
+
+            loss_disc = 0.25 * (loss_reference + loss_policy + loss_reference_domain + loss_policy_domain)
 
             # Gradient penalty.
             reference_d_grad = jax.tree_util.tree_map(

@@ -257,20 +257,23 @@ class Discriminator(nj.Module):
         return projection
 
 
-class GradientReversalLayer(nj.Module):
-    def __call__(self, x):
-        def grad_reverse(x):
-            @jax.custom_vjp
-            def identity(x):
-                return x
-            def fwd(x):
-                return x, ()
-            def bwd(_, g):
-                return (-g,)  # Reverse the gradient
-            identity.defvjp(fwd, bwd)
-            return identity(x)
+from flax import linen as nn
+@jax.custom_vjp
+def identity(x):
+    return x
 
-        return grad_reverse(x)
+def fwd(x):
+    return x, ()
+
+def bwd(_, g):
+    return (-g,)
+
+identity.defvjp(fwd, bwd)
+
+class GradientReversalLayer(nn.Module):
+    @nn.compact
+    def __call__(self, x):
+        return identity(x)
 
 
 class TPILDiscriminator(nj.Module):
@@ -286,7 +289,7 @@ class TPILDiscriminator(nj.Module):
         resize="stride",
         symlog_inputs=False,
         minres=4,
-        grl_enabled=False,  # NEW FLAG
+        grl_enabled=True,  # NEW FLAG
         **kw,
     ):
         excluded = r"(is_first|is_last)"
@@ -316,10 +319,12 @@ class TPILDiscriminator(nj.Module):
         self.grl_enabled = grl_enabled
         if grl_enabled:
             self._domain_mlp = MLP(
-                layers=2, units=mlp_units, dims="tensor", shape=None,
-                name="domain_mlp", **kw
+                layers=mlp_layers, units=mlp_units, dims="tensor", shape=None, **logit_kw
             )
-            self._domain_proj = self.get("domain_logit", Linear, 1, "none", "none", False)
+            self.grl = GradientReversalLayer()
+            dummy_x = jnp.zeros((944, 4096))
+            variables = self.grl.init(jax.random.PRNGKey(0), dummy_x)
+            output = self.grl.apply(variables, dummy_x)
 
     def __call__(self, data):
         some_key, some_shape = list(self.shapes.items())[0]
@@ -344,15 +349,12 @@ class TPILDiscriminator(nj.Module):
         # Domain discriminator (optional)
         domain_out = None
         if self.grl_enabled:
-            reversed_features = GradientReversalLayer()(features)
+            reversed_features = self.grl.apply({}, features)
             domain_logits = self._domain_mlp(reversed_features)
-            domain_out = self._domain_proj(domain_logits)
+            domain_out = self.get("disc_logit_domain", Linear, 1, "none", "none", False)(domain_logits)
             domain_out = domain_out.reshape(domain_out.shape[:-1])
 
-        return {
-            "behavior": behavior_out,
-            "domain": domain_out,
-        }
+        return behavior_out, domain_out
 
 
 class MultiEncoder(nj.Module):

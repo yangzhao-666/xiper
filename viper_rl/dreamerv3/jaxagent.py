@@ -236,7 +236,7 @@ class JAXAgent(embodied.Agent):
         data = self._dummy_batch({**obs_space, **act_space}, dims)
         data = self._convert_inps(data, self.train_devices)
         state, varibs = self._init_train(varibs, rng, data["is_first"])
-        if self.agent.wm.amp:
+        if self.agent.wm.amp or self.agent.wm.tpil:
             reference_data = self._dummy_batch({**obs_space, **act_space}, dims)
             reference_data = self._convert_inps(reference_data, self.train_devices)
             varibs = self._train(

@@ -179,7 +179,7 @@ method: name
 model_opt: {clip: 1000.0, eps: 1e-08, lateclip: 0.0, lr: 0.0001, opt: adam, 
     warmup: 0, wd: 0.0}
 prior_rewards: {density: 1.0, disag: 0.0, extr: 1.0}
-reference_dir: ./xail_data/cartpole_balance_body
+reference_dir: ./xail_data/dmc_cartpole_balance/
 rep_loss: {free: 1.0, impl: kl}
 replay: uniform
 replay_online: false
@@ -240,5 +240,6 @@ slow_critic_fraction: 0.02
 slow_critic_update: 1
 task: dmc_cartpole_balance
 task_behavior: MotionPrior
+tpil: true
 uniform_relabel_add_mode: chunk
 wrapper: {checks: false, density: false, discretize: 0, length: 0, reset: true}
