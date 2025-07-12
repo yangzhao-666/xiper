@@ -157,8 +157,17 @@ class WorldModel(nj.Module):
             config.expl_behavior == "MotionPrior"
         )
 
+        self.tpil = config.tpil
+
         if self.amp:
             self.discriminator = nets.Discriminator(
+                shapes, **config.discriminator, name="discriminator"
+            )
+            self.heads["discriminator_reward"] = nets.MLP(
+                (), **config.discriminator_head, name="discriminator_head"
+            )
+        if self.tpil:
+            self.discriminator = nets.TPILDiscriminator(
                 shapes, **config.discriminator, name="discriminator"
             )
             self.heads["discriminator_reward"] = nets.MLP(
@@ -179,7 +188,7 @@ class WorldModel(nj.Module):
 
     def train(self, data, state, reference_data=None):
         modules = [self.encoder, self.rssm, *self.heads.values()]
-        if self.amp:
+        if self.amp or self.tpil:
             modules.append(self.discriminator)
         mets, (state, outs, metrics) = self.opt(
             modules, self.loss, data, state, reference_data, has_aux=True
@@ -210,7 +219,6 @@ class WorldModel(nj.Module):
 
         additional_metrics = {}
 
-        import ipdb; ipdb.set_trace()
         if self.amp:
             idxs = list(
                 range(reference_data["is_first"].shape[1] - self.config.amp_window)
@@ -303,6 +311,100 @@ class WorldModel(nj.Module):
                     "mp_loss_policy_std": loss_policy.std(),
                 }
             )
+
+        if self.tpil:
+            idxs = list(
+                range(reference_data["is_first"].shape[1] - self.config.amp_window)
+            )
+            amp_data_stacks = {}
+            amp_reference_data_stacks = {}
+            for k, v in data.items():
+                if k in self.discriminator.shapes:
+                    amp_data_stacks[k] = jnp.stack(
+                        [
+                            v[:, idx : (idx + self.config.amp_window)].astype(
+                                jnp.float32
+                            )
+                            for idx in idxs
+                        ],
+                        axis=1,
+                    )
+            for k, v in reference_data.items():
+                if k in self.discriminator.shapes:
+                    amp_reference_data_stacks[k] = jnp.stack(
+                        [
+                            v[:, idx : (idx + self.config.amp_window)].astype(
+                                jnp.float32
+                            )
+                            for idx in idxs
+                        ],
+                        axis=1,
+                    )
+            amp_batch_dims = amp_data_stacks[list(amp_data_stacks.keys())[0]].shape[:2]
+            amp_data_stacks = jax.tree_util.tree_map(
+                lambda x: x.reshape((-1,) + x.shape[len(amp_batch_dims) :]),
+                amp_data_stacks,
+            )
+            amp_reference_data_stacks = jax.tree_util.tree_map(
+                lambda x: x.reshape((-1,) + x.shape[len(amp_batch_dims) :]),
+                amp_reference_data_stacks,
+            )
+            policy_d = self.discriminator(sg(amp_data_stacks))
+            reference_d, reference_d_grad = jax.vmap(
+                jax.value_and_grad(self.discriminator, has_aux=False)
+            )(sg(amp_reference_data_stacks))
+            loss = lambda x, y: (x - y) ** 2
+            reference_labels, policy_labels = jnp.ones_like(
+                reference_d
+            ), -1 * jnp.ones_like(policy_d)
+            loss_reference = loss(reference_labels, reference_d)
+            loss_policy = loss(policy_labels, policy_d)
+            loss_disc = 0.5 * (loss_reference + loss_policy)
+
+            # Gradient penalty.
+            reference_d_grad = jax.tree_util.tree_map(
+                lambda x: jnp.square(x), reference_d_grad
+            )
+            reference_d_grad = jax.tree_util.tree_map(
+                lambda x: jnp.sum(x, axis=np.arange(1, len(x.shape))), reference_d_grad
+            )
+            reference_d_grad = jax.tree_util.tree_reduce(
+                lambda x, y: x + y, reference_d_grad
+            )
+            loss_gp = 2.5 * reference_d_grad / self.config.amp_window
+            losses["mp_amp"] = loss_disc
+            losses["mp_amp_gp"] = loss_gp
+
+            # Update discriminator head.
+            policy_d = jax.tree_util.tree_map(
+                lambda x: x.reshape(amp_batch_dims), policy_d
+            )
+            feats_new = {k: v[:, self.config.amp_window :] for k, v in feats.items()}
+            discriminator_rewards = jnp.clip(
+                1 - (1.0 / 4.0) * jnp.square(policy_d - 1), -2, 2
+            )
+            discriminator_reward_dist = self.heads["discriminator_reward"](
+                feats_new
+                if "discriminator_reward" in self.config.grad_heads
+                else sg(feats_new)
+            )
+            losses["discriminator_reward"] = -discriminator_reward_dist.log_prob(
+                discriminator_rewards.astype(jnp.float32)
+            )
+
+            additional_metrics.update(
+                {
+                    "mp_logits_reference_mean": reference_d.mean(),
+                    "mp_logits_reference_std": reference_d.std(),
+                    "mp_logits_policy_mean": policy_d.mean(),
+                    "mp_logits_policy_std": policy_d.std(),
+                    "mp_loss_reference_mean": loss_reference.mean(),
+                    "mp_loss_reference_std": loss_reference.std(),
+                    "mp_loss_policy_mean": loss_policy.mean(),
+                    "mp_loss_policy_std": loss_policy.std(),
+                }
+            )
+
 
         for key, dist in dists.items():
             loss = -dist.log_prob(data[key].astype(jnp.float32))
