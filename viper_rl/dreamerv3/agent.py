@@ -353,10 +353,17 @@ class WorldModel(nj.Module):
             )
             import ipdb; ipdb.set_trace()
             # policy_d: predicted task label for agent data; policy_domain_label: predicted domain label for agent data
-            policy_d, policy_domain_label_predicted = self.discriminator(sg(amp_data_stacks))
-            reference_d, reference_d_grad, reference_domain_label_predicted, reference_domain_label_grad = jax.vmap(
-                jax.value_and_grad(self.discriminator, has_aux=False)
-            )(sg(amp_reference_data_stacks))
+            disc_feature = self.discriminator.extract_feature(sg(amp_data_stacks))
+            policy_d = self.discriminator.behavior_disc(disc_feature)
+            policy_domain_label_predicted = self.discriminator.domain_disc(disc_feature)
+
+            
+            disc_feature_ref = self.discriminator.extract_feature(sg(amp_reference_data_stacks))
+            reference_d, reference_d_grad = jax.vmap(
+                jax.value_and_grad(self.discriminator.behavior_disc, has_aux=False)
+            )(disc_feature_ref)
+            reference_domain_label_predicted = self.discriminator.domain_disc(disc_feature_ref)
+
             loss = lambda x, y: (x - y) ** 2
 
             # creating task / behaviors labels. random / agent: -1, expert: 1

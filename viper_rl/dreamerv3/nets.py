@@ -356,6 +356,41 @@ class TPILDiscriminator(nj.Module):
 
         return behavior_out, domain_out
 
+    def extract_feature(self, data):
+        some_key, some_shape = list(self.shapes.items())[0]
+        batch_dims = data[some_key].shape[: -(1 + len(some_shape))]
+        data = {
+            k: v.reshape((-1,) + v.shape[len(batch_dims):]) for k, v in data.items()
+        }
+        inputs = jnp.concatenate([data[k] for k in self.cnn_shapes], -1)
+        inputs = jnp.transpose(inputs, (0, 2, 3, 1, 4))
+        inputs = jnp.reshape(inputs, inputs.shape[:3] + (np.prod(inputs.shape[3:]),))
+        
+        # Shared CNN feature extractor
+        features = self._cnn(inputs)
+        features = features.reshape((features.shape[0], -1))
+        features = features.reshape(batch_dims + features.shape[1:])
+
+        return features
+
+    def behavior_disc(self, features):
+
+        # Behavior discriminator
+        logits = self._logit_mlp(features)
+        behavior_out = self.get("disc_logit", Linear, 1, "none", "none", False)(logits)
+        behavior_out = behavior_out.reshape(behavior_out.shape[:-1])
+
+        return behavior_out
+
+    def domain_disc(self, features):
+        domain_out = None
+        if self.grl_enabled:
+            reversed_features = self.grl.apply({}, features)
+            domain_logits = self._domain_mlp(reversed_features)
+            domain_out = self.get("disc_logit_domain", Linear, 1, "none", "none", False)(domain_logits)
+            domain_out = domain_out.reshape(domain_out.shape[:-1])
+
+        return domain_out
 
 class MultiEncoder(nj.Module):
     def __init__(
