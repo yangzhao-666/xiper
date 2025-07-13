@@ -68,6 +68,7 @@ class JAXAgent(embodied.Agent):
 
     def train(self, data, state=None, reference_data=None):
         rng = self._next_rngs(self.train_devices)
+        import ipdb; ipdb.set_trace()
         if state is None:
             state, self.varibs = self._init_train(self.varibs, rng, data["is_first"])
         if reference_data is not None:
