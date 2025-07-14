@@ -425,6 +425,13 @@ class WorldModel(nj.Module):
                     "mp_loss_reference_std": loss_reference.std(),
                     "mp_loss_policy_mean": loss_policy.mean(),
                     "mp_loss_policy_std": loss_policy.std(),
+                    # add for tpil
+                    "mp_logits_reference_domain_mean": reference_domain_label_predicted.mean(),
+                    "mp_logits_reference_domain_std": reference_domain_label_predicted.std(),
+                    "mp_loss_reference_domain_mean": loss_reference_domain.mean(),
+                    "mp_loss_reference_domain_std": loss_reference_domain.std(),
+                    "mp_loss_policy_domain_mean": loss_policy_domain.mean(),
+                    "mp_loss_policy_domain_std": loss_policy_domain.std(),
                 }
             )
 
