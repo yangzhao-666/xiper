@@ -315,6 +315,10 @@ class WorldModel(nj.Module):
             )
 
         if self.tpil:
+            # create dummy 'behavior' keys, since the dummy data is create with obs_spec, which doesnt include 'behavior'
+            if 'behavior' not in reference_data.keys():
+                reference_data['behavior'] = jnp.ones_like(reference_data['reward'])
+
             idxs = list(
                 range(reference_data["is_first"].shape[1] - self.config.amp_window)
             )
@@ -332,7 +336,7 @@ class WorldModel(nj.Module):
                         axis=1,
                     )
             for k, v in reference_data.items():
-                if k in self.discriminator.shapes:
+                if k in self.discriminator.shapes or k == 'behavior':
                     amp_reference_data_stacks[k] = jnp.stack(
                         [
                             v[:, idx : (idx + self.config.amp_window)].astype(
@@ -351,7 +355,6 @@ class WorldModel(nj.Module):
                 lambda x: x.reshape((-1,) + x.shape[len(amp_batch_dims) :]),
                 amp_reference_data_stacks,
             )
-            import ipdb; ipdb.set_trace()
             # policy_d: predicted task label for agent data; policy_domain_label: predicted domain label for agent data
             disc_feature = self.discriminator.extract_feature(sg(amp_data_stacks))
             policy_d = self.discriminator.behavior_disc(disc_feature)
@@ -367,10 +370,9 @@ class WorldModel(nj.Module):
             loss = lambda x, y: (x - y) ** 2
 
             # creating task / behaviors labels. random / agent: -1, expert: 1
-            task_mask = reference_data["behavior"]
-            reference_labels = task_mask[:, :self.config.amp_window].reshape(-1)
+            reference_labels = amp_reference_data_stacks["behavior"] # [N, amp_window]
             policy_labels = -1 * jnp.ones_like(policy_d)
-            loss_reference = loss(reference_labels, reference_d)
+            loss_reference = loss(reference_labels[:, 0], reference_d)
             loss_policy = loss(policy_labels, policy_d)
 
             # creating domain labels. expert domain: 1, agent / policy domain: -1.
@@ -378,7 +380,7 @@ class WorldModel(nj.Module):
                 reference_d
             ), -1 * jnp.ones_like(policy_d)
             loss_reference_domain = loss(reference_labels_domain, reference_domain_label_predicted)
-            loss_policy_domain = loss(policy_domain_label, policy_domain_label_predicted)
+            loss_policy_domain = loss(policy_labels_domain, policy_domain_label_predicted)
 
             loss_disc = 0.25 * (loss_reference + loss_policy + loss_reference_domain + loss_policy_domain)
 
