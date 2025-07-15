@@ -238,7 +238,7 @@ class WandBOutput:
         wandb.init(
             #project="dreamerv3_XD",
             #project="dreamerv3",
-            project="xiper_dmc",
+            project="tpil_dmc",
             #project="xiper_atari",
             #project="viper_ablation",
             #project="p2e",
@@ -246,7 +246,7 @@ class WandBOutput:
             # sync_tensorboard=True,,
             entity="zhao666",
             config=dict(config),
-            mode="disabled"
+            #mode="disabled"
         )
         self._wandb = wandb
 

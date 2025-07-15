@@ -6,7 +6,7 @@
 #SBATCH --gpus-per-task=1
 #SBATCH --time=24:00:00
 #SBATCH --partition=gpu_a100
-#SBATCH --array=0-2
+#SBATCH --array=0-1
 #SBATCH --output=/home/zyang2/logdir/slurm/output/%A_%a.out
 
 # Conda setu
@@ -24,14 +24,14 @@ export MUJOCO_GL="egl"
 
 # Agent
 #AGENT="Viper"
-AGENT="Drv3_color"
+AGENT="Drv3_gray"
 
 # Define tasks and seeds
 TASKS=(
     "atari_pong"
 #    "atari_freeway"
     "atari_kangaroo"
-    "atari_boxing"
+#    "atari_boxing"
 #    "atari_atlantis"
 )
 
@@ -51,6 +51,6 @@ echo "Running TASK=$TASK | AGENT=$AGENT | SEED=$SEED"
 python scripts/train_dreamer.py \
   --configs atari \
   --task=$TASK \
-  --env.atari.gray=False \
+  --env.atari.gray=True \
   --env.atari.stripe=False \
   --logdir=./logdir/${TASK}/${AGENT}/${SEED}>"test_${SEED}.out" 2>&1

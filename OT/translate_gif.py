@@ -70,9 +70,9 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model_path', type=str, default="/home/zyang2/XViper/OT/checkpoints_R/mse/atari_boxing/SN_TN_64/T_7999.pth")
-    parser.add_argument('--input_gif', type=str, default="/home/zyang2/XViper/analysis_videos/atari_boxing/good_videos/good_1.gif")
-    parser.add_argument('--output_gif', type=str, default="/home/zyang2/XViper/analysis_videos/atari_boxing/translated_good_videos/good_1.gif")
+    parser.add_argument('--model_path', type=str, default="/home/zyang2/XViper/OT/checkpoints_dmc_bigger/mse/cartpole_balance/SN_TN_64/T_6999.pth")
+    parser.add_argument('--input_gif', type=str, default="/home/zyang2/XViper/analysis_videos/dmc_cartpole_balance_body/good_videos/good_1.gif")
+    parser.add_argument('--output_gif', type=str, default="/home/zyang2/XViper/analysis_videos/dmc_cartpole_balance_body/translated_good_videos/good_1.gif")
     parser.add_argument('--batch_size', type=int, default=32)
     args = parser.parse_args()
 
