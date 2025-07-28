@@ -4,9 +4,9 @@
 #SBATCH --cpus-per-gpu=16
 #SBATCH --gpus=1
 #SBATCH --gpus-per-task=1
-#SBATCH --time=28:00:00
+#SBATCH --time=8:00:00
 #SBATCH --partition=gpu_a100
-#SBATCH --array=0
+#SBATCH --array=0-2
 #SBATCH --output=/home/zyang2/logdir/slurm/output/%A_%a.out
 
 # Conda setup
@@ -27,20 +27,20 @@ export MUJOCO_GL="egl"
 #AGENT="Xiper_ot_R_fid_High"
 #AGENT="XViper_separateOT_expert_data_best_ot_ground"
 #AGENT="OracleViper"
-AGENT="TPIL_color"
+AGENT="TPIL_body"
 
 # Define tasks and seeds
 TASKS=(
     "dmc_cartpole_balance"
-#    "dmc_quadruped_walk"
+#   "dmc_quadruped_walk"
 #    "dmc_quadruped_run"
 #    "dmc_cup_catch"
-#    "dmc_cheetah_run"
+    "dmc_cheetah_run"
 #"dmc_finger_spin"
 #    "dmc_pointmass_easy"
 #"dmc_hopper_stand"
 #"dmc_walker_walk"
-#    "dmc_cartpole_swingup"
+    "dmc_cartpole_swingup"
 #    "dmc_pendulum_swingup"
 #    "dmc_reacher_easy"
 )
@@ -65,7 +65,7 @@ OT_TYPE="R" # OT pretrained model is used. ER: expert and random data; R: random
 python scripts/train_dreamer.py \
   --configs dmc_vision motion_prior \
   --task=$TASK \
-  --reference_dir="./tpil_data/${TASK}" \
+  --reference_dir="./tpil_data/dmc_tpil/${TASK}" \
   --tpil=True \
   --reward_model_use_ot=False \
   --logdir=./logdir/${TASK}/${AGENT}/${SEED}>"test_${SEED}.out" 2>&1
