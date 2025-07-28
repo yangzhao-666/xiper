@@ -46,7 +46,8 @@ def main(argv=None):
     replay_kwargs = {'reward_model': reward_model}
 
     cleanup = []
-    task_list = ['dmc_cartpole_balance']
+    #task_list = ['dmc_cartpole_balance']
+    task_list = ['dmc_cartpole_balance','dmc_cartpole_swingup', 'dmc_cheetah_run', 'dmc_cup_catch', 'dmc_pendulum_swingup', 'dmc_pointmass_easy', 'dmc_quadruped_run', 'dmc_quadruped_walk']
     output_dir = './tpil_data/random_dmc/'
     os.makedirs(output_dir, exist_ok=True)
 

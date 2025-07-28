@@ -61,3 +61,4 @@ OT/*.out
 xail_data/
 analysis_videos/
 tpil_data/
+*.csv
