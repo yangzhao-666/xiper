@@ -58,6 +58,7 @@ OT/wandb/
 OT/checkpoints*/
 OT/stats*/
 OT/*.out
+OT/eval/*.h5
 xail_data/
 analysis_videos/
 tpil_data/
